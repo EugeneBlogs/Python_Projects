@@ -46,7 +46,7 @@ from_lbl = Label(
     font=("Calibri", 16)
 )
 from_lbl.grid(row=3, column=1, pady=10)
-from_spin = ttk.Spinbox(frame, from_=1, to=100, command=changeFrom, state="readonly")
+from_spin = ttk.Spinbox(frame, from_=2, to=36, command=changeFrom, state="readonly")
 from_spin.grid(row=3, column=3)
 
 
@@ -56,7 +56,7 @@ to_lbl = Label(
     font=("Calibri", 16)
 )
 to_lbl.grid(row=4, column=1, pady=10)
-to_spin = ttk.Spinbox(frame, from_=1, to=100, command=changeTo, state="readonly")
+to_spin = ttk.Spinbox(frame, from_=2, to=36, command=changeTo, state="readonly")
 to_spin.grid(row=4, column=3)
 
 calc_btn = Button(
@@ -70,12 +70,11 @@ calc_btn = Button(
 calc_btn.grid(row=5, column=2)
 
 def convert(number, from_system, to_system):
-    number = int(number)
     from_system = int(from_system)
     to_system = int(to_system)
     result = 0
     if from_system == 10:
-        result = from_ten(number, to_system)
+        result = from_ten(int(number), to_system)
     else:
         result = int(str(number), from_system)
     messagebox.showinfo('Результат', f'Число {number} из {from_system} системы счисления в {to_system} систему счисления = {result}.')
