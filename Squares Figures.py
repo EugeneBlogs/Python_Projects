@@ -1,8 +1,11 @@
 import math
-import tkinter as tk
 from tkinter import *
 from tkinter.ttk import Combobox
 from tkinter import messagebox
+
+print("!!!")
+print("В консоль будут выводится отчёты об ошибках. Чтобы консоль не открываласть - сохраните файл в формате '.pyw'.")
+print("!!!")
 
 window = Tk()
 window.title("Калькулятор площадей фигур")
@@ -71,6 +74,9 @@ def method_parallelogramm_storona_vysota():
     calc_btn = Button(
         frame,
         text="Рассчитать площадь",
+        cursor="hand2",
+        foreground="#006400",
+        background="#00ff00",
         command=lambda: calc_pryamougolnik(base_ent.get(), height_ent.get())
     )
     calc_btn.grid(row=7, column=2)
@@ -110,6 +116,9 @@ def method_parallelogramm_storony_ugol():
     calc_btn = Button(
         frame,
         text="Рассчитать площадь",
+        cursor="hand2",
+        foreground="#006400",
+        background="#00ff00",
         command=lambda: calc_par_storony_ugol(sideA_ent.get(), sideB_ent.get(), angle_ent.get())
     )
     calc_btn.grid(row=8, column=2)
@@ -155,6 +164,9 @@ def method_parallelogramm_diagonali_ugol():
     calc_btn = Button(
         frame,
         text="Рассчитать площадь",
+        cursor="hand2",
+        foreground="#006400",
+        background="#00ff00",
         command=lambda: calc_treug_storony_ugol(diagonalA_ent.get(), diagonalB_ent.get(), angle_ent.get())
     )
     calc_btn.grid(row=8, column=2)
@@ -189,6 +201,9 @@ def figure_pryamougolnik():
     calc_btn = Button(
         frame,
         text="Рассчитать площадь",
+        cursor="hand2",
+        foreground="#006400",
+        background="#00ff00",
         command=lambda: calc_pryamougolnik(sideA_ent.get(), sideB_ent.get())
     )
     calc_btn.grid(row=7, column=2)
@@ -214,6 +229,7 @@ def selected_method_kvadrat(event):
         method_kvadrat_diagonal()
 
 def method_kvadrat_storona():
+    clear_extra_widgets()
     side_lbl = Label(
         frame,
         text="Сторона",
@@ -227,10 +243,14 @@ def method_kvadrat_storona():
     calc_btn = Button(
         frame,
         text="Рассчитать площадь",
+        cursor="hand2",
+        foreground="#006400",
+        background="#00ff00",
         command=lambda: calc_pryamougolnik(side_ent.get(), side_ent.get())
     )
     calc_btn.grid(row=6, column=2)
 def method_kvadrat_diagonal():
+    clear_extra_widgets()
     diagonal_lbl = Label(
         frame,
         text="Диагональ",
@@ -244,6 +264,9 @@ def method_kvadrat_diagonal():
     calc_btn = Button(
         frame,
         text="Рассчитать площадь",
+        cursor="hand2",
+        foreground="#006400",
+        background="#00ff00",
         command=lambda: calc_treug_storona_vysota(diagonal_ent.get(), diagonal_ent.get())
     )
     calc_btn.grid(row=6, column=2)
@@ -276,6 +299,9 @@ def figure_romb():
     calc_btn = Button(
         frame,
         text="Рассчитать площадь",
+        cursor="hand2",
+        foreground="#006400",
+        background="#00ff00",
         command=lambda: calc_treug_storona_vysota(diagonalA_ent.get(), diagonalB_ent.get())
     )
     calc_btn.grid(row=7, column=2)
@@ -283,9 +309,20 @@ def figure_romb():
 
 def figure_trapecia():
     clear_extra_widgets()
-    methods = ["Через основания и высоту"]
-    method_combobox.config(values=methods, state="disabled")
+    methods = ["Через основания и высоту",
+               "Через среднюю линюю"]
+    method_combobox.config(values=methods, state="readonly")
     method_combobox.set("Через основания и высоту")
+    method_combobox.bind("<<ComboboxSelected>>", selected_method_trapecia)
+def selected_method_trapecia(event):
+    selection = method_combobox.get()
+    if selection == "Через основания и высоту":
+        method_trapecia_osnovaniya()
+    elif selection == "Через среднюю линюю":
+        method_trapecia_sred()
+
+def method_trapecia_osnovaniya():
+    clear_extra_widgets()
     baseA_lbl = Label(
         frame,
         text="Основание A",
@@ -319,6 +356,9 @@ def figure_trapecia():
     calc_btn = Button(
         frame,
         text="Рассчитать площадь",
+        cursor="hand2",
+        foreground="#006400",
+        background="#00ff00",
         command=lambda: calc_trapecia(baseA_ent.get(), baseB_ent.get(), height_ent.get())
     )
     calc_btn.grid(row=8, column=2)
@@ -328,6 +368,38 @@ def calc_trapecia(baseA, baseB, height):
     height = float(height)
     area = float((baseA + baseB) / 2 * height)
     show_result(area)
+
+def method_trapecia_sred():
+    clear_extra_widgets()
+    sred_lbl = Label(
+        frame,
+        text="Средняя линяя",
+        font=("Calibri", 16)
+    )
+    sred_lbl.grid(row=5, column=1, pady=10)
+    sred_ent = Entry(
+        frame
+    )
+    sred_ent.grid(row=5, column=2)
+    height_lbl = Label(
+        frame,
+        text="Высота",
+        font=("Calibri", 16)
+    )
+    height_lbl.grid(row=6, column=1, pady=10)
+    height_ent = Entry(
+        frame
+    )
+    height_ent.grid(row=6, column=2)
+    calc_btn = Button(
+        frame,
+        text="Рассчитать площадь",
+        cursor="hand2",
+        foreground="#006400",
+        background="#00ff00",
+        command=lambda: calc_pryamougolnik(sred_ent.get(), height_ent.get())
+    )
+    calc_btn.grid(row=7, column=2)
 
 
 def figure_treugolnik():
@@ -378,6 +450,9 @@ def method_treugolnik_storona_vysota():
     calc_btn = Button(
         frame,
         text="Рассчитать площадь",
+        cursor="hand2",
+        foreground="#006400",
+        background="#00ff00",
         command=lambda: calc_treug_storona_vysota(base_ent.get(), height_ent.get())
     )
     calc_btn.grid(row=7, column=2)
@@ -422,6 +497,9 @@ def method_treugolnik_storony_ugol():
     calc_btn = Button(
         frame,
         text="Рассчитать площадь",
+        cursor="hand2",
+        foreground="#006400",
+        background="#00ff00",
         command=lambda: calc_treug_storony_ugol(sideA_ent.get(), sideB_ent.get(), angle_ent.get())
     )
     calc_btn.grid(row=8, column=2)
@@ -467,6 +545,9 @@ def method_treugolnik_geron():
     calc_btn = Button(
         frame,
         text="Рассчитать площадь",
+        cursor="hand2",
+        foreground="#006400",
+        background="#00ff00",
         command=lambda: calc_treug_geron(sideA_ent.get(), sideB_ent.get(), sideC_ent.get())
     )
     calc_btn.grid(row=8, column=2)
@@ -523,6 +604,9 @@ def method_treugolnik_vpis_okr():
     calc_btn = Button(
         frame,
         text="Рассчитать площадь",
+        cursor="hand2",
+        foreground="#006400",
+        background="#00ff00",
         command=lambda: calc_treug_vpis_okr(sideA_ent.get(), sideB_ent.get(), sideC_ent.get(), radius_ent.get())
     )
     calc_btn.grid(row=9, column=2)
@@ -580,6 +664,9 @@ def method_treugolnik_opis_okr():
     calc_btn = Button(
         frame,
         text="Рассчитать площадь",
+        cursor="hand2",
+        foreground="#006400",
+        background="#00ff00",
         command=lambda: calc_treug_opis_okr(sideA_ent.get(), sideB_ent.get(), sideC_ent.get(), radius_ent.get())
     )
     calc_btn.grid(row=9, column=2)
@@ -609,6 +696,9 @@ def figure_krug():
     calc_btn = Button(
         frame,
         text="Рассчитать площадь",
+        cursor="hand2",
+        foreground="#006400",
+        background="#00ff00",
         command=lambda: calc_krug(radius_ent.get())
     )
     calc_btn.grid(row=6, column=2)
@@ -645,6 +735,9 @@ def figure_sektor():
     calc_btn = Button(
         frame,
         text="Рассчитать площадь",
+        cursor="hand2",
+        foreground="#006400",
+        background="#00ff00",
         command=lambda: calc_sektor(radius_ent.get(), duga_ent.get())
     )
     calc_btn.grid(row=7, column=2)
@@ -706,6 +799,9 @@ def method_4ugolnik_diagonali_ugol():
     calc_btn = Button(
         frame,
         text="Рассчитать площадь",
+        cursor="hand2",
+        foreground="#006400",
+        background="#00ff00",
         command=lambda: calc_treug_storony_ugol(diagonalA_ent.get(), diagonalB_ent.get(), angle_ent.get())
     )
     calc_btn.grid(row=8, column=2)
@@ -755,6 +851,9 @@ def method_4ugolnik_storony():
     calc_btn = Button(
         frame,
         text="Рассчитать площадь",
+        cursor="hand2",
+        foreground="#006400",
+        background="#00ff00",
         command=lambda: calc_4ugolnik_storony(sideA_ent.get(), sideB_ent.get(), sideC_ent.get(), sideD_ent.get())
     )
     calc_btn.grid(row=9, column=2)
@@ -822,6 +921,9 @@ def method_4ugolnik_radius():
     calc_btn = Button(
         frame,
         text="Рассчитать площадь",
+        cursor="hand2",
+        foreground="#006400",
+        background="#00ff00",
         command=lambda: calc_4ugolnik_radius(sideA_ent.get(), sideB_ent.get(), sideC_ent.get(), sideD_ent.get(), radius_ent.get())
     )
     calc_btn.grid(row=10, column=2)
@@ -877,10 +979,11 @@ method_lbl = Label(
     )
 method_lbl.grid(row=3, column=1)
 
-method_combobox = Combobox(frame, width=30, state="readonly")
+method_combobox = Combobox(frame, width=45, state="readonly")
 method_combobox.grid(row=4, column=1)
 
 global_widgets = frame.winfo_children()
+
 def clear_extra_widgets():
     for widget in frame.winfo_children():
         if widget not in global_widgets:
