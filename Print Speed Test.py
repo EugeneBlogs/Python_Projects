@@ -128,6 +128,8 @@ def start():
 
     textbox.grid(row=6, column=1, pady=10)
     textbox.delete("1.0", END)
+    textbox.focus_set()
+
     start_time = time.time()
 
 def time_convert(sec):
