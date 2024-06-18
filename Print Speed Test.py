@@ -81,11 +81,11 @@ def change(event):
             root.withdraw()
             name = simpledialog.askstring(title="Имя", prompt="Как Вас зовут?")
             try:
-                text_file = open('History.txt', 'r').read()
+                text_file = open('D:/Мыльников Евгений Алексеевич/Мои программы/Python/History.txt', 'r').read()
                 if text_file == None or text_file == "":
                     print("Yes")
                     text_file = ""
-                file = open('History.txt', 'w')
+                file = open('D:/Мыльников Евгений Алексеевич/Мои программы/Python/History.txt', 'w')
                 text_add = f"{name} ({date.today().day}.{date.today().month}.{date.today().year} {datetime.now().hour}:{datetime.now().minute}:{datetime.now().second}) - Текст: '{current_text.split(" ")[0]}'. Время: {time_convert(time_lapsed)}. Скорость: {speed} символов/секунду. WPM: {WPM} слов/минуту. Точность: {accuracy}%."
                 result = f"{text_file}\n{text_add}"
                 file.write(result)
@@ -141,16 +141,33 @@ def time_convert(sec):
     return result
 
 def show():
-    file = open('History.txt', 'r')
+    file = open('D:/Мыльников Евгений Алексеевич/Мои программы/Python/History.txt', 'r')
     messagebox.showinfo('История', file.read())
 
 def clear():
     if askyesno(title="Очистить историю", message="Вы действительно хотите очистить историю?"):
         try:
-            open('History.txt', 'w').close()
+            open('D:/Мыльников Евгений Алексеевич/Мои программы/Python/History.txt', 'w').close()
             showwarning(title="Выполнено", message="История очищена!")
         except:
             showerror(title="Ошибка", message="Что-то пошло не так.")
+
+def category_wpm():
+    root = Tk()
+    root.withdraw()
+    wpm = simpledialog.askstring(title="WPM", prompt="Какой WPM показал наш тест?")
+    try:
+        wpm = int(wpm)
+        if wpm < 30:
+            messagebox.showinfo('Результат', "У вас медленный темп печати.")
+        elif 30 <= wpm <= 60:
+            messagebox.showinfo('Результат', "У вас средний темп печати.")
+        elif 60 <= wpm <= 100:
+            messagebox.showinfo('Результат', "У вас быстрый темп печати.")
+        elif wpm > 100:
+            messagebox.showinfo('Результат', "У вас сверхбыстрый темп печати.")
+    except:
+        showerror(title="Ошибка", message="Что-то пошло не так.")
 
 window = Tk()
 window.title("Проверка скорости печати")
@@ -169,6 +186,7 @@ history_menu = Menu()
 history_menu.add_command(label="Показать", command=show)
 history_menu.add_command(label="Очистить", command=clear)
 main_menu.add_cascade(label="История", menu=history_menu)
+main_menu.add_cascade(label="Узнать темп печати", command=category_wpm)
 window.config(menu=main_menu)
 
 header_lbl = Label(
