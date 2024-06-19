@@ -2,6 +2,9 @@
 Для получения текущего курса используется библиотека "Кequests".
 Чтобы ёё установить, напишите в командной строке команду "pip install requests".
 
+Для отображения статуса загрузки данных используется библиотека "Rich".
+Чтобы ёё установить, напишите в командной строке команду "pip install rich".
+
 Если командная строка выдаёт ошибку, сделайте следующие действия:
 1. Откройте "Изменение системных переменных среды".
 2. Откройте "Переменные среды".
@@ -9,44 +12,75 @@
 4. Создайте 2 ссылки: "C:/Users/mylni/AppData/Local/Programs/Python/Python312" и "C:/Users/mylni/AppData/Local/Programs/Python/Python312/Scripts" (ссылки немного могут отличаться).
 '''
 
+from rich.console import Console
+
 import requests
-st_accept = "text/html"
-headers = {
-   "Accept": st_accept
-}
-request_dollar = requests.get("https://www.banki.ru/products/currency/cash/usd/kaliningrad/?ysclid=lxlwjyi46d368077000", headers)
-src_dollar = request_dollar.text
-request_euro = requests.get("https://www.banki.ru/products/currency/cash/eur/kaliningrad/?ysclid=lxlwynupj5785684786", headers)
-src_euro = request_euro.text
-request_funt = requests.get("https://www.banki.ru/products/currency/cash/gbp/kaliningrad/?ysclid=lxlxw32q78674110939", headers)
-src_funt = request_funt.text
-request_zlot = requests.get("https://www.banki.ru/products/currency/cash/pln/kaliningrad/?ysclid=lxlwyskp4x408665150", headers)
-src_zlot = request_zlot.text
-request_yuan = requests.get("https://www.banki.ru/products/currency/cash/cny/kaliningrad/?ysclid=lxlxw64sjc29349328", headers)
-src_yuan = request_yuan.text
-request_tenge = requests.get("https://www.banki.ru/products/currency/kzt/?ysclid=lxlywfex9a725827682", headers)
-src_tenge = request_tenge.text
 
-after = '<div data-test="text" class="Text__sc-j452t5-0 bCCQWi">'
+console = Console()
 
-dollar = src_dollar[src_dollar.find(after)+len(after):].split()[0]
-dollar = dollar.replace(",", ".")
-dollar = float(dollar)
-euro = src_euro[src_euro.find(after)+len(after):].split()[0]
-euro = euro.replace(",", ".")
-euro = float(euro)
-funt = src_funt[src_funt.find(after)+len(after):].split()[0]
-funt = funt.replace(",", ".")
-funt = float(funt)
-zlot = src_zlot[src_zlot.find(after)+len(after):].split()[0]
-zlot = zlot.replace(",", ".")
-zlot = float(zlot)
-yuan = src_yuan[src_yuan.find(after)+len(after):].split()[0]
-yuan = yuan.replace(",", ".")
-yuan = float(yuan)
-tenge = src_tenge[src_tenge.find(after)+len(after):].split()[0]
-tenge = tenge.replace(",", ".")
-tenge = float(tenge)
+with console.status(f"[bold green]Загрузка данных ...[/bold green]") as status:
+    st_accept = "text/html"
+    headers = {
+        "Accept": st_accept
+    }
+    request_dollar = requests.get(
+        "https://www.banki.ru/products/currency/cash/usd/kaliningrad/?ysclid=lxlwjyi46d368077000", headers)
+    src_dollar = request_dollar.text
+    print("Курс доллара получен ✓")
+    request_euro = requests.get(
+        "https://www.banki.ru/products/currency/cash/eur/kaliningrad/?ysclid=lxlwynupj5785684786", headers)
+    src_euro = request_euro.text
+    print("Курс евро получен ✓")
+    request_funt = requests.get(
+        "https://www.banki.ru/products/currency/cash/gbp/kaliningrad/?ysclid=lxlxw32q78674110939", headers)
+    src_funt = request_funt.text
+    print("Курс фунта получен ✓")
+    request_zlot = requests.get(
+        "https://www.banki.ru/products/currency/cash/pln/kaliningrad/?ysclid=lxlwyskp4x408665150", headers)
+    src_zlot = request_zlot.text
+    print("Курс злотого получен ✓")
+    request_yuan = requests.get(
+        "https://www.banki.ru/products/currency/cash/cny/kaliningrad/?ysclid=lxlxw64sjc29349328", headers)
+    src_yuan = request_yuan.text
+    print("Курс юаня получен ✓")
+    request_tenge = requests.get("https://www.banki.ru/products/currency/kzt/?ysclid=lxlywfex9a725827682", headers)
+    src_tenge = request_tenge.text
+    print("Курс тенге получен ✓")
+    request_belorus = requests.get("https://www.banki.ru/products/currency/byn/?ysclid=lxm3cd2g6c843406242", headers)
+    src_belorus = request_belorus.text
+    print("Курс белорусского рубля получен ✓")
+
+    after = '<div data-test="text" class="Text__sc-j452t5-0 bCCQWi">'
+    print("")
+
+    dollar = src_dollar[src_dollar.find(after)+len(after):].split()[0]
+    dollar = dollar.replace(",", ".")
+    dollar = float(dollar)
+    print("Курс доллара обработан ✓")
+    euro = src_euro[src_euro.find(after)+len(after):].split()[0]
+    euro = euro.replace(",", ".")
+    euro = float(euro)
+    print("Курс евро обработан ✓")
+    funt = src_funt[src_funt.find(after)+len(after):].split()[0]
+    funt = funt.replace(",", ".")
+    funt = float(funt)
+    print("Курс фунта обработан ✓")
+    zlot = src_zlot[src_zlot.find(after)+len(after):].split()[0]
+    zlot = zlot.replace(",", ".")
+    zlot = float(zlot)
+    print("Курс злотого обработан ✓")
+    yuan = src_yuan[src_yuan.find(after)+len(after):].split()[0]
+    yuan = yuan.replace(",", ".")
+    yuan = float(yuan)
+    print("Курс юаня обработан ✓")
+    tenge = src_tenge[src_tenge.find(after)+len(after):].split()[0]
+    tenge = tenge.replace(",", ".")
+    tenge = float(tenge)
+    print("Курс тенге обработан ✓")
+    belorus = src_belorus[src_belorus.find(after)+len(after):].split()[0]
+    belorus = belorus.replace(",", ".")
+    belorus = float(belorus)
+    print("Курс белорусского рубля обработан ✓")
 
 from tkinter import *
 from tkinter.ttk import Combobox
@@ -54,6 +88,7 @@ from tkinter import messagebox
 
 import webbrowser
 
+print("")
 print("!!!")
 print("В консоль будут выводится отчёты об ошибках. Чтобы консоль не открываласть - сохраните файл в формате '.pyw'.")
 print("!!!")
@@ -64,7 +99,7 @@ window.geometry("700x400")
 window.option_add("*tearOff", FALSE)
 
 def current_couse():
-    messagebox.showinfo('Результат', f'1$ = {dollar}₽\n1€ = {euro}₽\n1£ = {funt}₽\n1zł = {zlot}₽\n1¥ = {yuan}₽\n1₸ = {tenge}₽')
+    messagebox.showinfo('Результат', f'1$ = {dollar}₽\n1€ = {euro}₽\n1£ = {funt}₽\n1zł = {zlot}₽\n1¥ = {yuan}₽\n1₸ = {tenge}₽\n1Br = {belorus}₽')
 
 def siteUSD():
     webbrowser.open('https://www.banki.ru/products/currency/cash/usd/kaliningrad/?ysclid=lxlwjyi46d368077000', new=2)
@@ -77,7 +112,9 @@ def sitePLN():
 def siteCNY():
     webbrowser.open('https://www.banki.ru/products/currency/cash/cny/kaliningrad/?ysclid=lxlxw64sjc29349328', new=2)
 def siteKZT():
-    webbrowser.open('https://www.banki.ru/products/currency/kzt/?ysclid=lxlywfex9a725827682', new=2)
+    webbrowser.open('https://www.banki.ru/products/currency/byn/?ysclid=lxm3cd2g6c843406242', new=2)
+def siteBYN():
+    webbrowser.open('https://www.banki.ru/products/currency/byn/?ysclid=lxm3cd2g6c843406242', new=2)
 
 def selected_from(event):
     combobox_to.set("Российский Рубль (RUB)")
@@ -117,6 +154,10 @@ def convert():
             result = number / tenge
             result = round(result, 1)
             messagebox.showinfo('Результат', f'{number}₽ = {result}₸')
+        elif to_currency == "Белорусский Рубль (BYN)":
+            result = number / belorus
+            result = round(result, 1)
+            messagebox.showinfo('Результат', f'{number}₽ = {result}Br')
     elif to_currency == "Российский Рубль (RUB)":
         if from_currency == "Российский Рубль (RUB)":
             result = number
@@ -145,6 +186,10 @@ def convert():
             result = number * tenge
             result = round(result, 1)
             messagebox.showinfo('Результат', f'{number}₸ = {result}₽')
+        elif from_currency == "Белорусский Рубль (BYN)":
+            result = number * belorus
+            result = round(result, 1)
+            messagebox.showinfo('Результат', f'{number}Br = {result}₽')
 
 currencies = ["Российский Рубль (RUB)",
            "Доллар (USD)",
@@ -152,7 +197,8 @@ currencies = ["Российский Рубль (RUB)",
            "Британский Фунт Стерлингов (GBR)",
            "Польский Злотый (PLN)",
            "Китайский Юань (CNY)",
-           "Казахстанский Тенге (KZT)"]
+           "Казахстанский Тенге (KZT)",
+           "Белорусский Рубль (BYN)"]
 
 frame = Frame(
    window,
@@ -170,6 +216,7 @@ sites_menu.add_command(label="Британский Фунт Стерлингов
 sites_menu.add_command(label="Польский Злотый", command=sitePLN)
 sites_menu.add_command(label="Китайский Юань", command=siteCNY)
 sites_menu.add_command(label="Казахстанский Тенге", command=siteKZT)
+sites_menu.add_command(label="Белорусский Рубль", command=siteBYN)
 main_menu.add_cascade(label="Источник информации", menu=sites_menu)
 window.config(menu=main_menu)
 
