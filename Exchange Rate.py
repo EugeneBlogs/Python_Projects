@@ -16,77 +16,81 @@ from rich.console import Console
 
 import requests
 
-console = Console()
-
-with console.status(f"[bold green]Загрузка данных ...[/bold green]") as status:
-    st_accept = "text/html"
-    headers = {
-        "Accept": st_accept
-    }
-    request_dollar = requests.get(
-        "https://www.banki.ru/products/currency/cash/usd/kaliningrad/?ysclid=lxlwjyi46d368077000", headers)
-    src_dollar = request_dollar.text
-    print("Курс доллара получен ✓")
-    request_euro = requests.get(
-        "https://www.banki.ru/products/currency/cash/eur/kaliningrad/?ysclid=lxlwynupj5785684786", headers)
-    src_euro = request_euro.text
-    print("Курс евро получен ✓")
-    request_funt = requests.get(
-        "https://www.banki.ru/products/currency/cash/gbp/kaliningrad/?ysclid=lxlxw32q78674110939", headers)
-    src_funt = request_funt.text
-    print("Курс фунта получен ✓")
-    request_zlot = requests.get(
-        "https://www.banki.ru/products/currency/cash/pln/kaliningrad/?ysclid=lxlwyskp4x408665150", headers)
-    src_zlot = request_zlot.text
-    print("Курс злотого получен ✓")
-    request_yuan = requests.get(
-        "https://www.banki.ru/products/currency/cash/cny/kaliningrad/?ysclid=lxlxw64sjc29349328", headers)
-    src_yuan = request_yuan.text
-    print("Курс юаня получен ✓")
-    request_tenge = requests.get("https://www.banki.ru/products/currency/kzt/?ysclid=lxlywfex9a725827682", headers)
-    src_tenge = request_tenge.text
-    print("Курс тенге получен ✓")
-    request_belorus = requests.get("https://www.banki.ru/products/currency/byn/?ysclid=lxm3cd2g6c843406242", headers)
-    src_belorus = request_belorus.text
-    print("Курс белорусского рубля получен ✓")
-
-    after = '<div data-test="text" class="Text__sc-j452t5-0 bCCQWi">'
-    print("")
-
-    dollar = src_dollar[src_dollar.find(after)+len(after):].split()[0]
-    dollar = dollar.replace(",", ".")
-    dollar = float(dollar)
-    print("Курс доллара обработан ✓")
-    euro = src_euro[src_euro.find(after)+len(after):].split()[0]
-    euro = euro.replace(",", ".")
-    euro = float(euro)
-    print("Курс евро обработан ✓")
-    funt = src_funt[src_funt.find(after)+len(after):].split()[0]
-    funt = funt.replace(",", ".")
-    funt = float(funt)
-    print("Курс фунта обработан ✓")
-    zlot = src_zlot[src_zlot.find(after)+len(after):].split()[0]
-    zlot = zlot.replace(",", ".")
-    zlot = float(zlot)
-    print("Курс злотого обработан ✓")
-    yuan = src_yuan[src_yuan.find(after)+len(after):].split()[0]
-    yuan = yuan.replace(",", ".")
-    yuan = float(yuan)
-    print("Курс юаня обработан ✓")
-    tenge = src_tenge[src_tenge.find(after)+len(after):].split()[0]
-    tenge = tenge.replace(",", ".")
-    tenge = float(tenge)
-    print("Курс тенге обработан ✓")
-    belorus = src_belorus[src_belorus.find(after)+len(after):].split()[0]
-    belorus = belorus.replace(",", ".")
-    belorus = float(belorus)
-    print("Курс белорусского рубля обработан ✓")
-
 from tkinter import *
 from tkinter.ttk import Combobox
 from tkinter import messagebox
 
 import webbrowser
+
+console = Console()
+
+try:
+    with console.status(f"[bold green]Загрузка данных ...[/bold green]") as status:
+        st_accept = "text/html"
+        headers = {
+            "Accept": st_accept
+        }
+        request_dollar = requests.get(
+            "https://www.banki.ru/products/currency/cash/usd/kaliningrad/?ysclid=lxlwjyi46d368077000", headers)
+        src_dollar = request_dollar.text
+        print("Курс доллара получен ✓")
+        request_euro = requests.get(
+            "https://www.banki.ru/products/currency/cash/eur/kaliningrad/?ysclid=lxlwynupj5785684786", headers)
+        src_euro = request_euro.text
+        print("Курс евро получен ✓")
+        request_funt = requests.get(
+            "https://www.banki.ru/products/currency/cash/gbp/kaliningrad/?ysclid=lxlxw32q78674110939", headers)
+        src_funt = request_funt.text
+        print("Курс фунта получен ✓")
+        request_zlot = requests.get(
+            "https://www.banki.ru/products/currency/cash/pln/kaliningrad/?ysclid=lxlwyskp4x408665150", headers)
+        src_zlot = request_zlot.text
+        print("Курс злотого получен ✓")
+        request_yuan = requests.get(
+            "https://www.banki.ru/products/currency/cash/cny/kaliningrad/?ysclid=lxlxw64sjc29349328", headers)
+        src_yuan = request_yuan.text
+        print("Курс юаня получен ✓")
+        request_tenge = requests.get("https://www.banki.ru/products/currency/kzt/?ysclid=lxlywfex9a725827682", headers)
+        src_tenge = request_tenge.text
+        print("Курс тенге получен ✓")
+        request_belorus = requests.get("https://www.banki.ru/products/currency/byn/?ysclid=lxm3cd2g6c843406242", headers)
+        src_belorus = request_belorus.text
+        print("Курс белорусского рубля получен ✓")
+
+        after = '<div data-test="text" class="Text__sc-j452t5-0 bCCQWi">'
+        print("")
+
+        dollar = src_dollar[src_dollar.find(after)+len(after):].split()[0]
+        dollar = dollar.replace(",", ".")
+        dollar = float(dollar)
+        print("Курс доллара обработан ✓")
+        euro = src_euro[src_euro.find(after)+len(after):].split()[0]
+        euro = euro.replace(",", ".")
+        euro = float(euro)
+        print("Курс евро обработан ✓")
+        funt = src_funt[src_funt.find(after)+len(after):].split()[0]
+        funt = funt.replace(",", ".")
+        funt = float(funt)
+        print("Курс фунта обработан ✓")
+        zlot = src_zlot[src_zlot.find(after)+len(after):].split()[0]
+        zlot = zlot.replace(",", ".")
+        zlot = float(zlot)
+        print("Курс злотого обработан ✓")
+        yuan = src_yuan[src_yuan.find(after)+len(after):].split()[0]
+        yuan = yuan.replace(",", ".")
+        yuan = float(yuan)
+        print("Курс юаня обработан ✓")
+        tenge = src_tenge[src_tenge.find(after)+len(after):].split()[0]
+        tenge = tenge.replace(",", ".")
+        tenge = float(tenge)
+        print("Курс тенге обработан ✓")
+        belorus = src_belorus[src_belorus.find(after)+len(after):].split()[0]
+        belorus = belorus.replace(",", ".")
+        belorus = float(belorus)
+        print("Курс белорусского рубля обработан ✓")
+except:
+    messagebox.showerror(title="Ошибка", message="Что-то пошло не так. Возможно, отсутствует подключение к интернету, либо на сайте \"Банки.Ру\" возникли проблемы.")
+    raise SystemExit
 
 print("")
 print("!!!")
