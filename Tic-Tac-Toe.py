@@ -299,7 +299,7 @@ while True:
         elif winner == "O":
             print(f"[bold yellow blink]Выиграли[/bold yellow blink] [blue]O[/blue]!")
     elif nobody:
-        print("[bold blue blink]Ничья![/bold blue blink]")
+        print("[bold cyan blink]Ничья![/bold cyan blink]")
     print("")
     print("[italic green]Нажмите [underline red]Enter[/underline red] для перезапуска.[/italic green]")
     input()
