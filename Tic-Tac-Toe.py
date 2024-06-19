@@ -89,7 +89,7 @@ while True:
                 else:
                     print(":exclamation_mark: [underline yellow]Ячейка занята.[/underline yellow] :exclamation_mark:")
             except:
-                print(":exclamation_mark: [bold underline red]Что-то пошло не так. Возможно вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
+                print(":exclamation_mark: [bold underline red]Что-то пошло не так. Возможно, вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
     if choose == 2:
         print("")
         print("[bold green on blue blink]Человек - [red]X[/red] Компьютер - [yellow]O[/yellow][/bold green on blue blink]")
@@ -115,7 +115,7 @@ while True:
                     else:
                         print(":exclamation_mark: [underline yellow]Ячейка занята.[/underline yellow] :exclamation_mark:")
                 except:
-                    print(":exclamation_mark: [bold underline red]Что-то пошло не так. Возможно вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
+                    print(":exclamation_mark: [bold underline red]Что-то пошло не так. Возможно, вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
             elif player == "O":
                 variants = []
                 if field[0][0] == field[0][1] == "O" and field[0][2] == "-":
