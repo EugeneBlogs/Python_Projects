@@ -52,6 +52,8 @@ from tkinter import *
 from tkinter.ttk import Combobox
 from tkinter import messagebox
 
+import webbrowser
+
 print("!!!")
 print("В консоль будут выводится отчёты об ошибках. Чтобы консоль не открываласть - сохраните файл в формате '.pyw'.")
 print("!!!")
@@ -59,9 +61,23 @@ print("!!!")
 window = Tk()
 window.title("Курс валют")
 window.geometry("700x400")
+window.option_add("*tearOff", FALSE)
 
 def current_couse():
     messagebox.showinfo('Результат', f'1$ = {dollar}₽\n1€ = {euro}₽\n1£ = {funt}₽\n1zł = {zlot}₽\n1¥ = {yuan}₽\n1₸ = {tenge}₽')
+
+def siteUSD():
+    webbrowser.open('https://www.banki.ru/products/currency/cash/usd/kaliningrad/?ysclid=lxlwjyi46d368077000', new=2)
+def siteEUR():
+    webbrowser.open('https://www.banki.ru/products/currency/cash/eur/kaliningrad/?ysclid=lxlwynupj5785684786', new=2)
+def siteGBR():
+    webbrowser.open('https://www.banki.ru/products/currency/cash/gbp/kaliningrad/?ysclid=lxlxw32q78674110939', new=2)
+def sitePLN():
+    webbrowser.open('https://www.banki.ru/products/currency/cash/pln/kaliningrad/?ysclid=lxlwyskp4x408665150', new=2)
+def siteCNY():
+    webbrowser.open('https://www.banki.ru/products/currency/cash/cny/kaliningrad/?ysclid=lxlxw64sjc29349328', new=2)
+def siteKZT():
+    webbrowser.open('https://www.banki.ru/products/currency/kzt/?ysclid=lxlywfex9a725827682', new=2)
 
 def selected_from(event):
     combobox_to.set("Российский Рубль (RUB)")
@@ -147,6 +163,14 @@ frame.pack(expand=True)
 
 main_menu = Menu()
 main_menu.add_cascade(label="Текущий курс", command=current_couse)
+sites_menu = Menu()
+sites_menu.add_command(label="Доллар", command=siteUSD)
+sites_menu.add_command(label="Евро", command=siteEUR)
+sites_menu.add_command(label="Британский Фунт Стерлингов", command=siteGBR)
+sites_menu.add_command(label="Польский Злотый", command=sitePLN)
+sites_menu.add_command(label="Китайский Юань", command=siteCNY)
+sites_menu.add_command(label="Казахстанский Тенге", command=siteKZT)
+main_menu.add_cascade(label="Источник информации", menu=sites_menu)
 window.config(menu=main_menu)
 
 header_lbl = Label(
