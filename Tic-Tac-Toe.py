@@ -109,9 +109,6 @@ while True:
                         CheckWinner()
                         ChechNobody()
                         if win == False and nobody == False:
-                            # print("")
-                            # print("Компьютер делает ход ...")
-                            # time.sleep(1)
                             with console.status("[bold cyan]Компьютер делает ход ...[/bold cyan]") as status:
                                 for i in range(3):
                                     time.sleep(1)
