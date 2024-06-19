@@ -22,8 +22,6 @@ from tkinter import messagebox
 
 import webbrowser
 
-import re
-
 console = Console()
 
 try:
