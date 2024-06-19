@@ -59,8 +59,8 @@ while True:
         choose = 1
     if choose == 1:
         print("")
-        weight = Prompt.ask("Ваш вес (кг):", default="63.4")
-        height = Prompt.ask("Ваш рост (см):", default="176")
+        weight = Prompt.ask("Ваш вес (кг)", default="63.4")
+        height = Prompt.ask("Ваш рост (см)", default="176")
         try:
             weight = float(weight)
             height = float(height)
