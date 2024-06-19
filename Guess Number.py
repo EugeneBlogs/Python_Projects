@@ -11,11 +11,6 @@
 
 import random
 from rich import print
-from time import sleep
-from rich.progress import track
-
-def do_step(step):
-    sleep(random.uniform(0.001, 0.03))
 
 while True:
     min_num = 0
@@ -40,9 +35,6 @@ while True:
         random_number = random.randint(min_num, max_num)
     except:
         random_number = random.randint(max_num, min_num)
-
-    for step in track(range(100), description="Программа загадывает число ..."):
-        do_step(step)
 
     print("")
     print(":ok_hand: [bold green]Программа загадала число.[/bold green] :ok_hand:")
