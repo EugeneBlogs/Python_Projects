@@ -31,7 +31,7 @@ while True:
         min_num = int(input("Введите первое число: "))
         max_num = int(input("Введите первое число: "))
     except:
-        print(":exclamation_mark: [bold red]Что-то пошло не так. Возможно вы ввели некорректные числа. Присвоен стандартный диапозон: [underline yellow]от 1 до 10[/underline yellow].[/bold red] :exclamation_mark:")
+        print(":exclamation_mark: [bold red]Что-то пошло не так. Возможно, вы ввели некорректные числа. Присвоен стандартный диапозон: [underline yellow]от 1 до 10[/underline yellow].[/bold red] :exclamation_mark:")
         min_num = 1
         max_num = 10
 
