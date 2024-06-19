@@ -1,3 +1,19 @@
+'''
+Для красивого отображения интерфейса используется библиотека "Rich".
+Чтобы ёё установить, напишите в командной строке команду "pip install rich".
+
+Если командная строка выдаёт ошибку, сделайте следующие действия:
+1. Откройте "Изменение системных переменных среды".
+2. Откройте "Переменные среды".
+3. Выберите "Path" и нажмите "Изменить".
+4. Создайте 2 ссылки: "C:/Users/mylni/AppData/Local/Programs/Python/Python312" и "C:/Users/mylni/AppData/Local/Programs/Python/Python312/Scripts" (ссылки немного могут отличаться).
+'''
+
+from rich import print
+from rich.console import Console
+
+console = Console()
+
 while True:
     field = [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]]
     win = False
@@ -12,7 +28,12 @@ while True:
         print()
         for i in range(0, len(field)):
             for j in range(0, len(field[i])):
-                print(field[i][j], end=' ')
+                if field[i][j] == "X":
+                    print("[red]X[/red]", end=' ')
+                elif field[i][j] == "O":
+                    print("[blue]O[/blue]", end=' ')
+                else:
+                    print("[green]-[/green]", end=' ')
             print()
 
     def Change():
@@ -41,9 +62,9 @@ while True:
             nobody = True
 
     print("")
-    print("Добро пожаловать в игру \"Крестики-Нолики\"!")
-    print("Чтобы указать нужную ячейку, введите 2 числа через пробел в формате РЯД СТОЛБЕЦ (например: 2 3, где 2 - ряд, а 3 - столбец).")
-    print("Как играем?")
+    print("Добро пожаловать в игру [bold yellow on red blink]\"Крестики-Нолики\"[/bold yellow on red blink]! :waving_hand:")
+    print("Чтобы указать нужную ячейку, введите [underline blue]2 числа через пробел[/underline blue] в формате РЯД СТОЛБЕЦ (например: 2 3, где 2 - ряд, а 3 - столбец).")
+    print("[italic green]Как играем?[/italic green]")
     print("2 человека - 1")
     print("Человек против Компьютера - 2")
     choose = 1
@@ -54,7 +75,7 @@ while True:
 
     if choose == 1:
         print("")
-        print("2 человека")
+        print("[bold green on blue blink]2 человека[/bold green on blue blink]")
         print("")
         while win == False and nobody == False:
             Draw()
@@ -66,12 +87,12 @@ while True:
                     CheckWinner()
                     ChechNobody()
                 else:
-                    print("Ячейка занята.")
+                    print(":exclamation_mark: [underline yellow]Ячейка занята.[/underline yellow] :exclamation_mark:")
             except:
-                print("Что-то пошло не так. Возможно вы ввели некорректные числа.")
+                print(":exclamation_mark: [bold underline red]Что-то пошло не так. Возможно вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
     if choose == 2:
         print("")
-        print("Человек - X Компьютер - O")
+        print("[bold green on blue blink]Человек - [red]X[/red] Компьютер - [yellow]O[/yellow][/bold green on blue blink]")
         print("")
         player_row = 0
         player_column = 0
@@ -88,13 +109,16 @@ while True:
                         CheckWinner()
                         ChechNobody()
                         if win == False and nobody == False:
-                            print("")
-                            print("Компьютер делает ход ...")
-                            time.sleep(1)
+                            # print("")
+                            # print("Компьютер делает ход ...")
+                            # time.sleep(1)
+                            with console.status("[bold cyan]Компьютер делает ход ...[/bold cyan]") as status:
+                                for i in range(3):
+                                    time.sleep(1)
                     else:
-                        print("Ячейка занята.")
+                        print(":exclamation_mark: [underline yellow]Ячейка занята.[/underline yellow] :exclamation_mark:")
                 except:
-                    print("Что-то пошло не так. Возможно вы ввели некорректные числа.")
+                    print(":exclamation_mark: [bold underline red]Что-то пошло не так. Возможно вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
             elif player == "O":
                 variants = []
                 if field[0][0] == field[0][1] == "O" and field[0][2] == "-":
@@ -273,8 +297,12 @@ while True:
     Draw()
     print("")
     if win:
-        print(f"Выиграли {winner}!")
+        if winner == "X":
+            print(f"[bold yellow blink]Выиграли[/bold yellow blink] [red]X[/red]!")
+        elif winner == "O":
+            print(f"[bold yellow blink]Выиграли[/bold yellow blink] [blue]O[/blue]!")
     elif nobody:
-        print("Ничья!")
+        print("[bold blue blink]Ничья![/bold blue blink]")
     print("")
-    input("Нажмите Enter для перезапуска.")
+    print("[italic green]Нажмите [underline red]Enter[/underline red] для перезапуска.[/italic green]")
+    input()
