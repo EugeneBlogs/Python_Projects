@@ -87,7 +87,7 @@ while True:
                     CheckWinner()
                     ChechNobody()
                 else:
-                    print(":exclamation_mark: [underline yellow]Ячейка занята.[/underline yellow] :exclamation_mark:")
+                    print(":warning:  [underline yellow]Ячейка занята.[/underline yellow] :warning:")
             except:
                 print(":exclamation_mark: [bold underline red]Что-то пошло не так. Возможно, вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
     if choose == 2:
@@ -113,7 +113,7 @@ while True:
                                 for i in range(3):
                                     time.sleep(1)
                     else:
-                        print(":exclamation_mark: [underline yellow]Ячейка занята.[/underline yellow] :exclamation_mark:")
+                        print(":warning:  [underline yellow]Ячейка занята.[/underline yellow] :warning:")
                 except:
                     print(":exclamation_mark: [bold underline red]Что-то пошло не так. Возможно, вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
             elif player == "O":
