@@ -22,6 +22,8 @@ from tkinter import messagebox
 
 import webbrowser
 
+import re
+
 console = Console()
 
 try:
@@ -31,23 +33,23 @@ try:
             "Accept": st_accept
         }
         request_dollar = requests.get(
-            "https://www.banki.ru/products/currency/cash/usd/kaliningrad/?ysclid=lxlwjyi46d368077000", headers)
+            "https://www.banki.ru/products/currency/usd/?ysclid=lxlwjyi46d368077000", headers)
         src_dollar = request_dollar.text
         print("Курс доллара получен ✓")
         request_euro = requests.get(
-            "https://www.banki.ru/products/currency/cash/eur/kaliningrad/?ysclid=lxlwynupj5785684786", headers)
+            "https://www.banki.ru/products/currency/eur/?ysclid=lxlwynupj5785684786", headers)
         src_euro = request_euro.text
         print("Курс евро получен ✓")
         request_funt = requests.get(
-            "https://www.banki.ru/products/currency/cash/gbp/kaliningrad/?ysclid=lxlxw32q78674110939", headers)
+            "https://www.banki.ru/products/currency/gbp/?ysclid=lxlxw32q78674110939", headers)
         src_funt = request_funt.text
         print("Курс фунта получен ✓")
         request_zlot = requests.get(
-            "https://www.banki.ru/products/currency/cash/pln/kaliningrad/?ysclid=lxlwyskp4x408665150", headers)
+            "https://www.banki.ru/products/currency/pln/?ysclid=lxlwyskp4x408665150", headers)
         src_zlot = request_zlot.text
         print("Курс злотого получен ✓")
         request_yuan = requests.get(
-            "https://www.banki.ru/products/currency/cash/cny/kaliningrad/?ysclid=lxlxw64sjc29349328", headers)
+            "https://www.banki.ru/products/currency/cny/?ysclid=lxlxw64sjc29349328", headers)
         src_yuan = request_yuan.text
         print("Курс юаня получен ✓")
         request_tenge = requests.get("https://www.banki.ru/products/currency/kzt/?ysclid=lxlywfex9a725827682", headers)
@@ -58,11 +60,16 @@ try:
         print("Курс белорусского рубля получен ✓")
 
         after = '<div data-test="text" class="Text__sc-j452t5-0 bCCQWi">'
+        after_date = '<div data-test="currency--result-item--refresh-date" class="Text__sc-j452t5-0 hDxmZl">'
         print("")
 
         dollar = src_dollar[src_dollar.find(after)+len(after):].split()[0]
         dollar = dollar.replace(",", ".")
         dollar = float(dollar)
+
+        date_update = f"Обновление сайта: {src_dollar[src_dollar.find(after_date)+len(after_date):].split()[1]} {src_dollar[src_dollar.find(after_date)+len(after_date):].split()[2]}"
+        date_update = date_update.replace("</div></div><div", "")
+
         print("Курс доллара обработан ✓")
         euro = src_euro[src_euro.find(after)+len(after):].split()[0]
         euro = euro.replace(",", ".")
@@ -98,7 +105,7 @@ print("В консоль будут выводится отчёты об оши�
 print("!!!")
 
 window = Tk()
-window.title("Курс валют")
+window.title(f"Курс валют ({date_update} МСК)")
 window.geometry("700x400")
 window.option_add("*tearOff", FALSE)
 
@@ -106,15 +113,15 @@ def current_couse():
     messagebox.showinfo('Результат', f'1$ = {dollar}₽\n1€ = {euro}₽\n1£ = {funt}₽\n1zł = {zlot}₽\n1¥ = {yuan}₽\n1₸ = {tenge}₽\n1Br = {belorus}₽')
 
 def siteUSD():
-    webbrowser.open('https://www.banki.ru/products/currency/cash/usd/kaliningrad/?ysclid=lxlwjyi46d368077000', new=2)
+    webbrowser.open('https://www.banki.ru/products/currency/usd/?ysclid=lxlwjyi46d368077000', new=2)
 def siteEUR():
-    webbrowser.open('https://www.banki.ru/products/currency/cash/eur/kaliningrad/?ysclid=lxlwynupj5785684786', new=2)
+    webbrowser.open('https://www.banki.ru/products/currency/eur/?ysclid=lxlwynupj5785684786', new=2)
 def siteGBR():
-    webbrowser.open('https://www.banki.ru/products/currency/cash/gbp/kaliningrad/?ysclid=lxlxw32q78674110939', new=2)
+    webbrowser.open('https://www.banki.ru/products/currency/gbp/?ysclid=lxlxw32q78674110939', new=2)
 def sitePLN():
-    webbrowser.open('https://www.banki.ru/products/currency/cash/pln/kaliningrad/?ysclid=lxlwyskp4x408665150', new=2)
+    webbrowser.open('https://www.banki.ru/products/currency/pln/?ysclid=lxlwyskp4x408665150', new=2)
 def siteCNY():
-    webbrowser.open('https://www.banki.ru/products/currency/cash/cny/kaliningrad/?ysclid=lxlxw64sjc29349328', new=2)
+    webbrowser.open('https://www.banki.ru/products/currency/cny/?ysclid=lxlxw64sjc29349328', new=2)
 def siteKZT():
     webbrowser.open('https://www.banki.ru/products/currency/byn/?ysclid=lxm3cd2g6c843406242', new=2)
 def siteBYN():
