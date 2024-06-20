@@ -81,11 +81,11 @@ def change(event):
             root.withdraw()
             name = simpledialog.askstring(title="Имя", prompt="Как Вас зовут?")
             try:
-                text_file = open('D:/Мыльников Евгений Алексеевич/Мои программы/Python/Projects/History.txt', 'r').read()
+                text_file = open('D:/Мыльников Евгений Алексеевич/Мои программы/Python/Projects/History.txt', 'r', encoding='utf-8').read()
                 if text_file == None or text_file == "":
                     print("Yes")
                     text_file = ""
-                file = open('D:/Мыльников Евгений Алексеевич/Мои программы/Python/Projects/History.txt', 'w')
+                file = open('D:/Мыльников Евгений Алексеевич/Мои программы/Python/Projects/History.txt', 'w', encoding='utf-8')
                 text_add = f"{name} ({date.today().day}.{date.today().month}.{date.today().year} {datetime.now().hour}:{datetime.now().minute}:{datetime.now().second}) - Текст: '{current_text.split(" ")[0]}'. Время: {time_convert(time_lapsed)}. Скорость: {speed} символов/секунду. WPM: {WPM} слов/минуту. Точность: {accuracy}%."
                 result = f"{text_file}\n{text_add}"
                 file.write(result)
@@ -141,13 +141,13 @@ def time_convert(sec):
     return result
 
 def show():
-    file = open('D:/Мыльников Евгений Алексеевич/Мои программы/Python/Projects/History.txt', 'r')
+    file = open('D:/Мыльников Евгений Алексеевич/Мои программы/Python/Projects/History.txt', 'r', encoding='utf-8')
     messagebox.showinfo('История', file.read())
 
 def clear():
     if askyesno(title="Очистить историю", message="Вы действительно хотите очистить историю?"):
         try:
-            open('D:/Мыльников Евгений Алексеевич/Мои программы/Python/Projects/History.txt', 'w').close()
+            open('D:/Мыльников Евгений Алексеевич/Мои программы/Python/Projects/History.txt', 'w', encoding='utf-8').close()
             showwarning(title="Выполнено", message="История очищена!")
         except:
             showerror(title="Ошибка", message="Что-то пошло не так.")
