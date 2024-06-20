@@ -58,16 +58,11 @@ try:
         print("Курс белорусского рубля получен ✓")
 
         after = '<div data-test="text" class="Text__sc-j452t5-0 bCCQWi">'
-        after_date = '<div data-test="currency--result-item--refresh-date" class="Text__sc-j452t5-0 hDxmZl">'
         print("")
-
+        
         dollar = src_dollar[src_dollar.find(after)+len(after):].split()[0]
         dollar = dollar.replace(",", ".")
         dollar = float(dollar)
-
-        date_update = f"Обновление сайта: {src_dollar[src_dollar.find(after_date)+len(after_date):].split()[1]} {src_dollar[src_dollar.find(after_date)+len(after_date):].split()[2]}"
-        date_update = date_update.replace("</div></div><div", "")
-
         print("Курс доллара обработан ✓")
         euro = src_euro[src_euro.find(after)+len(after):].split()[0]
         euro = euro.replace(",", ".")
@@ -103,7 +98,7 @@ print("В консоль будут выводится отчёты об оши�
 print("!!!")
 
 window = Tk()
-window.title(f"Курс валют ({date_update} МСК)")
+window.title(f"Курс валют")
 window.geometry("700x400")
 window.option_add("*tearOff", FALSE)
 
