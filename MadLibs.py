@@ -8,7 +8,6 @@ print("!!!")
 current_text = ""
 questions = []
 
-
 def clear_extra_widgets():
     for widget in frame.winfo_children():
         widget.destroy()
@@ -202,7 +201,10 @@ def result():
     result_text = ""
     words = []
     for i in range(len(questions)):
-        words.append(window.nametowidget(f".fr.text{i + 1}").get())
+        word = window.nametowidget(f".fr.text{i + 1}").get()
+        if word == "" or word == None:
+            word = "___"
+        words.append(word)
     if current_text == "Отпуск":
         result_text = f'На протяжении всего года {words[0]} мечтал о своем летнем отпуске. Он планировал отправиться {words[1]}, чтобы насладиться {words[4]} {words[2]} и {words[5]} {words[3]}. Наконец, долгожданный отпуск наступил. {words[0]} собрал свои вещи, включая {words[6]}, {words[7]} и несколько {words[8]}, и отправился {words[1]}. Первые дни отпуска он провел {words[9]}, {words[10]} и {words[11]}. Вечером {words[0]} {words[12]}, {words[13]}. В один из дней он решил {words[14]}. На следующий день произошло {words[15]}, изменив все его планы. В конце отпуска {words[0]} был полон впечатлений и воспоминаний о своих приключениях. Он вернулся домой с {words[16]}, {words[17]} и множеством {words[18]}, которые напоминали ему о незабываемых моментах его летнего отпуска.'
     elif current_text == "Поход в музей":
