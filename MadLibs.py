@@ -17,15 +17,15 @@ def create_field(number, name):
     lbl = Label(
         frame,
         text=f"{number}. {name}",
-        font=("Ink Free", 16)
+        font=("Ink Free", 20)
     )
-    lbl.grid(row=number, column=1, pady=10)
+    lbl.grid(row=number+1, column=1, pady=5)
     ent = Entry(
         frame,
         name=f"text{number}",
-        font=("Ink Free", 16)
+        font=("Ink Free", 20)
     )
-    ent.grid(row=number, column=3)
+    ent.grid(row=number+1, column=3)
 
 
 def start():
@@ -35,6 +35,14 @@ def start():
     current_text = combobox.get()
 
     clear_extra_widgets()
+
+    title_lbl = Label(
+        frame,
+        text=current_text,
+        font=("Ink Free", 30),
+        fg="green"
+    )
+    title_lbl.grid(row=1, column=2, pady=30)
 
     if current_text == "Отпуск":
         questions = [
@@ -190,8 +198,8 @@ def start():
         cursor="hand2",
         foreground="#000000",
         background="#ff0000",
-        font=("Ink Free", 16),
-        width=15,
+        font=("Ink Free", 22),
+        width=20,
         command=lambda: result()
     )
     result_btn.grid(row=len(questions) + 2, column=2, pady=30)
@@ -226,13 +234,21 @@ def result():
 
     result_text = result_text.replace("ё", "е").replace("Ё", "Е")
 
+    title_lbl = Label(
+        frame,
+        text=current_text,
+        font=("Ink Free", 30),
+        fg="green"
+    )
+    title_lbl.grid(row=1, column=1, pady=20)
+
     text_lbl = Label(
         frame,
         text=result_text,
-        font=("Ink Free", 22),
-        wraplength=650
+        font=("Ink Free", 24),
+        wraplength=1000
     )
-    text_lbl.grid(row=1, column=1, pady=10)
+    text_lbl.grid(row=2, column=1, pady=10)
 
     home_btn = Button(
         frame,
@@ -240,11 +256,11 @@ def result():
         cursor="hand2",
         foreground="#ffffff",
         background="#0000ff",
-        font=("Ink Free", 16),
+        font=("Ink Free", 22),
         width=15,
         command=lambda: exit()
     )
-    home_btn.grid(row=2, column=1, pady=30)
+    home_btn.grid(row=3, column=1, pady=30)
 
 
 def exit():
@@ -265,7 +281,7 @@ frame.pack(expand=True)
 header_lbl = Label(
     frame,
     text="Генератор смешных историй",
-    font=("Ink Free", 20),
+    font=("Ink Free", 30),
     fg="blue"
 )
 header_lbl.grid(row=1, column=2, pady=10)
@@ -273,9 +289,9 @@ header_lbl.grid(row=1, column=2, pady=10)
 info_lbl = Label(
     frame,
     text="Готовьте свои щёки - будет очень весело😂\nВыберите название текста (кстати все тексты авторского сочинения) из предложенного списка, затем ответьте на вопросы. Ответом может служить как одно слово, так и словосочетания или оборот (причастный и деепричастный).\nДанные ответы будут подставлены в текст. Так как вы не знали контекст, получится смешная история :)",
-    font=("Ink Free", 16),
+    font=("Ink Free", 24),
     fg="red",
-    wraplength=650
+    wraplength=750
 )
 info_lbl.grid(row=2, column=2, pady=10)
 
@@ -288,7 +304,7 @@ titles = ["Отпуск",
           "Ремонт",
           "Письмо Деду Морозу"]
 
-combobox = Combobox(frame, values=titles, width=30, font=("Ink Free", 20), state="readonly")
+combobox = Combobox(frame, values=titles, width=30, font=("Ink Free", 22), state="readonly")
 combobox.grid(row=3, column=2, pady=30)
 combobox.set("Отпуск")
 
@@ -298,7 +314,7 @@ start_btn = Button(
     cursor="hand2",
     foreground="#000000",
     background="#ffff00",
-    font=("Ink Free", 18),
+    font=("Ink Free", 22),
     width=15,
     command=lambda: start()
 )
@@ -310,7 +326,7 @@ home_btn = Button(
         cursor="hand2",
         foreground="#ffffff",
         background="#0000ff",
-        font=("Ink Free", 16),
+        font=("Ink Free", 22),
         width=15,
         command=lambda: exit()
     )
