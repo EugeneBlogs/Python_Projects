@@ -4,6 +4,10 @@
 Для распознования QR-кодов используется библиотека "opencv-python".
 '''
 
+print("!!!")
+print("В консоль будут выводится отчёты об ошибках. Чтобы консоль не открываласть - сохраните файл в формате '.pyw'.")
+print("!!!")
+
 from tkinter import *
 from tkinter import messagebox, simpledialog, filedialog
 
