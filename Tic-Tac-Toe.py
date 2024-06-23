@@ -302,4 +302,37 @@ while True:
         print("[bold cyan blink]Ничья![/bold cyan blink]")
     print("")
     print("[italic green]Нажмите [underline red]Enter[/underline red] для перезапуска.[/italic green]")
-    input()
+    str_text = input()
+    if str_text == "RPS" or str_text == "КМН":
+        print("")
+        print("[bold yellow blink]Поздравляем![/bold yellow blink] Вы обнаружили пасхалку! :clap:")
+        print("Давайте сыргаем в игру [italic red]\"Камень, Ножницы, Бумага\"[/italic red]!")
+        print("[underline green]Что выбираете?[/underline green]")
+        print("Камень - К")
+        print("Ножницы - Н")
+        print("Бумага - Б")
+        choose_object = input("Выбор: ")
+        variants = ["К", "Н", "Б", "к", "н", "б"]
+        while choose_object not in variants:
+            print("")
+            print(":exclamation_mark: [bold underline red]Такого предмета нет. Повторите попытку.[/bold underline red] :exclamation_mark:")
+            choose_object = input("Выбор: ")
+        user = ""
+        if choose_object == "К" or choose_object == "к": user = "Камень"
+        elif choose_object == "Н" or choose_object == "н": user = "Ножницы"
+        elif choose_object == "Б" or choose_object == "б": user = "Бумага"
+        rnd = random.randint(1, 3)
+        computer = ""
+        if rnd == 1: computer = "Камень"
+        elif rnd == 2: computer = "Ножницы"
+        elif rnd == 3: computer = "Бумага"
+        print("")
+        print(f"[red]Вы[/red]: {user}.")
+        print(f"[yellow]Компьютер[/yellow]: {computer}.")
+        if user == computer: print("[bold green blink]Ничья![/bold green blink]")
+        elif user == "Камень" and computer == "Ножницы": print("[bold yellow blink]Вы выиграли![/bold yellow blink]")
+        elif user == "Камень" and computer == "Бумага": print("[bold red blink]Компьютер выиграл![/bold red blink]")
+        elif user == "Ножницы" and computer == "Камень": print("[bold red blink]Компьютер выиграл![/bold red blink]")
+        elif user == "Ножницы" and computer == "Бумага": print("[bold yellow blink]Вы выиграли![/bold yellow blink]")
+        elif user == "Бумага" and computer == "Камень": print("[bold yellow blink]Вы выиграли![/bold yellow blink]")
+        elif user == "Бумага" and computer == "Ножницы": print("[bold red blink]Компьютер выиграл![/bold red blink]")
