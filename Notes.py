@@ -7,7 +7,7 @@ from tkinter import messagebox, simpledialog, colorchooser
 from tkinter.messagebox import askyesno
 
 import pickledb
-db = pickledb.load("notes.db", True)
+db = pickledb.load("./files/notes.db", True)
 
 current_row = 1
 current_column = 1
@@ -21,6 +21,62 @@ window.title("Заметки")
 window.geometry("900x770")
 window.option_add("*tearOff", FALSE)
 window.resizable(width=False, height=False)
+
+name_current_widget = ""
+
+def copy_name():
+    name = name_current_widget.replace(".text_", "")
+    window.clipboard_clear()
+    window.clipboard_append(name)
+
+def copy_text():
+    name = name_current_widget.replace(".text_", "")
+    text = db.get(name)
+    text = text[14:]
+    window.clipboard_clear()
+    window.clipboard_append(text)
+
+def copy_select_text():
+    text = window.nametowidget(name_current_widget).selection_get()
+    window.clipboard_clear()
+    window.clipboard_append(text)
+
+def copy_color():
+    name = name_current_widget.replace(".text_", "")
+    text = db.get(name)
+    symbols = []
+    for symbol in text:
+        symbols += symbol
+    hex = f"#{symbols[4]}{symbols[5]}{symbols[6]}{symbols[7]}{symbols[8]}{symbols[9]}"
+    window.clipboard_clear()
+    window.clipboard_append(hex)
+
+def delete_note():
+    name = name_current_widget.replace(".text_", "")
+    if askyesno(title="Удалить заметку", message=f"Вы действительно хотите удалить заметку \"{name}\"?"):
+        try:
+            db.rem(name)
+            messagebox.showwarning("Успешно", f"Заметка \"{name}\" удалена!")
+        except:
+            messagebox.showerror("Ошибка", "Что-то пошло не так. Повторите попытку.")
+    clear_extra_widgets()
+    create_notes()
+
+m = Menu(window, tearoff=0)
+m.add_command(label="Скопировать название", command=copy_name)
+m.add_command(label="Скопировать текст", command=copy_text)
+m.add_command(label="Скопировать выделенный текст", command=copy_select_text)
+m.add_command(label="Скопировать цвет", command=copy_color)
+m.add_separator()
+m.add_command(label="Удалить заметку", command=delete_note)
+
+def context_menu(event):
+    global name_current_widget
+    try:
+        name_current_widget = str(event.widget)
+        m.tk_popup(event.x_root, event.y_root)
+    finally:
+        m.grab_release()
 
 def clear_extra_widgets():
     for widget in window.winfo_children():
@@ -81,10 +137,12 @@ def create_notes():
                 height=10,
                 font=("Bahnschrift", 12),
                 background=hex,
+                name=f"text_{i}"
             )
             textbox.insert("1.0", f"{name}\n\n{text}")
             textbox.config(state="disabled")
             textbox.grid(row=current_row, column=current_column)
+            textbox.bind("<Button-3>", context_menu)
             if current_column < 5:
                 current_column += 1
             else:
@@ -92,23 +150,6 @@ def create_notes():
                 current_column = 1
     except:
         print("Созданных заметок ещё нет.")
-
-def delete_note():
-    name = simpledialog.askstring(title="Название", prompt="Название заметки")
-    all_notes = str(db.getall())
-    all_notes = all_notes.replace("dict_keys([", "").replace("])", "").replace("'", "")
-    notes = all_notes.split(", ")
-    if name in notes and name != "":
-        if askyesno(title="Удалить заметку", message=f"Вы действительно хотите удалить заметку \"{name}\"?"):
-            try:
-                db.rem(name)
-                messagebox.showwarning("Успешно", f"Заметка \"{name}\" удалена!")
-            except:
-                messagebox.showerror("Ошибка", "Что-то пошло не так. Повторите попытку.")
-            clear_extra_widgets()
-            create_notes()
-    else:
-        messagebox.showerror("Ошибка", "Заметка с таким названем не найдена.")
 
 def delete_notes():
     if askyesno(title="Удалить все заметки", message=f"Вы действительно хотите удалить все заметки?"):
@@ -122,10 +163,7 @@ def delete_notes():
 
 main_menu = Menu()
 main_menu.add_cascade(label="Создать заметку", command=new_note)
-del_menu = Menu()
-del_menu.add_command(label="Заметку", command=delete_note)
-del_menu.add_command(label="Все заметки", command=delete_notes)
-main_menu.add_cascade(label="Удалить", menu=del_menu)
+main_menu.add_cascade(label="Удалить все заметки", command=delete_notes)
 
 window.config(menu=main_menu)
 
