@@ -36,7 +36,9 @@ def new_note():
         all_notes = str(db.getall())
         all_notes = all_notes.replace("dict_keys([", "").replace("])", "").replace("'", "")
         notes = all_notes.split(", ")
-        if name in notes:
+        if name == "":
+            messagebox.showerror("Ошибка", "Название не может быть пустым.")
+        elif name in notes:
             messagebox.showerror("Ошибка", "Заметка с таким названем уже существует.")
         elif "," in name:
             messagebox.showerror("Ошибка", "Нельзя использовать данный символ в названии.")
@@ -96,7 +98,7 @@ def delete_note():
     all_notes = str(db.getall())
     all_notes = all_notes.replace("dict_keys([", "").replace("])", "").replace("'", "")
     notes = all_notes.split(", ")
-    if name in notes:
+    if name in notes and name != "":
         if askyesno(title="Удалить заметку", message=f"Вы действительно хотите удалить заметку \"{name}\"?"):
             try:
                 db.rem(name)
