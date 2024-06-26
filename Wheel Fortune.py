@@ -9,7 +9,7 @@ print("!!!")
 
 window = Tk()
 window.title("Колесо фортуны")
-window.geometry("550x400")
+window.geometry("550x450")
 
 variants = []
 enabled = IntVar()
@@ -45,6 +45,19 @@ def choose():
         messagebox.showinfo("Результат", f'Выбран элемент: "{random.choice(variants)}"')
     except:
         messagebox.showerror("Ошибка", "Что-то пошло не так. Возможно, вы не добавили элементы.")
+
+def random_order():
+    try:
+        random.shuffle(variants)
+        order = ""
+        for i in range(len(variants)):
+            order += f'{variants[i]}, '
+        order = order[:-2]
+        messagebox.showinfo("Результат", f'Порядок: "{order}"')
+    except:
+        messagebox.showerror("Ошибка", "Что-то пошло не так. Возможно, вы не добавили элементы.")
+
+
 
 frame = Frame(
    window,
@@ -115,12 +128,24 @@ choose_btn = Button(
 )
 choose_btn.grid(row=3, column=1, columnspan=4, sticky=EW, pady=5)
 
+random_btn = Button(
+        frame,
+        text="Расположить в слуяайном порядке",
+        cursor="hand2",
+        foreground="white",
+        background="blue",
+        font=("Cambria", 12),
+        width=10,
+        command=lambda: random_order()
+)
+random_btn.grid(row=4, column=1, columnspan=4, sticky=EW, pady=5)
+
 checkbutton = Checkbutton(
     frame,
     text="Очищать поле автоматически",
     variable=enabled
 )
-checkbutton.grid(row=4, column=1, columnspan=4, pady=5)
+checkbutton.grid(row=5, column=1, columnspan=4, pady=5)
 checkbutton.select()
 
 window.mainloop()
