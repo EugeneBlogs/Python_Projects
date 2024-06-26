@@ -15,7 +15,6 @@ variants = []
 enabled = IntVar()
 
 def add():
-    print(enabled.get())
     global variants
     listbox.insert(0, text.get())
     variants.append(text.get())
