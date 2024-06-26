@@ -476,8 +476,8 @@ def create_lap():
 def show_laps():
     if isRun == False:
         string = ""
-        for str in laps:
-            string += f"{str}\n"
+        for i in range(len(laps)):
+            string += f"{i+1}. {laps[i]}\n"
         messagebox.showinfo("Круги", string)
 
 stopwatch_lbl = Label(
