@@ -47,14 +47,14 @@ def choose():
         messagebox.showerror("Ошибка", "Что-то пошло не так. Возможно, вы не добавили элементы.")
 
 def random_order():
-    try:
+    if len(variants) != 0:
         random.shuffle(variants)
         order = ""
         for i in range(len(variants)):
             order += f'{variants[i]}, '
         order = order[:-2]
         messagebox.showinfo("Результат", f'Порядок: "{order}"')
-    except:
+    else:
         messagebox.showerror("Ошибка", "Что-то пошло не так. Возможно, вы не добавили элементы.")
 
 
