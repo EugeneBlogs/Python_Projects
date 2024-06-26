@@ -22,6 +22,7 @@ def do_step(step):
 
 def plus_massa(weight, height):
     cool = False
+    error = False
     weight = round(weight, 1)
     cool_weight = weight
     while cool == False:
@@ -29,12 +30,19 @@ def plus_massa(weight, height):
         BMI = cool_weight / (height ** 2)
         if 18.5 < BMI <= 25:
             cool = True
-    difference = cool_weight - weight
-    difference = round(difference, 1)
-    print(f"[underline green]До нормы[/underline green] нужно набрать {difference} кг, чтобы вес стал {cool_weight}.")
+        elif BMI < 0:
+            cool = True
+            error = True
+    if error:
+        print(":exclamation_mark: [bold underline red]Что-то пошло не так. Возможно, вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
+    elif cool:
+        difference = cool_weight - weight
+        difference = round(difference, 1)
+        print(f"[underline green]До нормы[/underline green] нужно набрать {difference} кг, чтобы вес стал {cool_weight}.")
 
 def minus_massa(weight, height):
     cool = False
+    error = False
     weight = round(weight, 1)
     cool_weight = weight
     while cool == False:
@@ -42,9 +50,15 @@ def minus_massa(weight, height):
         BMI = cool_weight / (height ** 2)
         if 18.5 < BMI <= 25:
             cool = True
-    difference = weight - cool_weight
-    difference = round(difference, 1)
-    print(f"[underline green]До нормы[/underline green] нужно скинуть {difference} кг, чтобы вес стал {cool_weight}.")
+        elif BMI < 0:
+            cool = True
+            error = True
+    if error:
+        print(":exclamation_mark: [bold underline red]Что-то пошло не так. Возможно, вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
+    elif cool:
+        difference = weight - cool_weight
+        difference = round(difference, 1)
+        print(f"[underline green]До нормы[/underline green] нужно скинуть {difference} кг, чтобы вес стал {cool_weight}.")
 
 while True:
     print("")
@@ -61,38 +75,41 @@ while True:
         print("")
         weight = Prompt.ask("Ваш вес (кг)", default="63.4")
         height = Prompt.ask("Ваш рост (см)", default="176")
-        try:
-            weight = float(weight)
-            height = float(height)
-            height = height / 100
-            BMI = weight/(height**2)
-            BMI = round(BMI, 1)
-            for step in track(range(100), description="Вычисляем ..."):
-                do_step(step)
-            print("")
-            print(f"[magenta]Ваш ИМТ:[/magenta] {BMI}.")
-            if BMI < 16:
-                print("У вас [blue]выраженный дефицит массы[/blue].")
-                plus_massa(weight, height)
-            elif 16 <= BMI <= 18.5:
-                print("У вас [cyan]недостаточная масса[/cyan].")
-                plus_massa(weight, height)
-            elif 18.5 < BMI <= 25:
-                print("У вас [green]норма[/green].")
-            elif 25 < BMI <= 30:
-                print("У вас [dark_green]избыточная масса (предожирение)[/dark_green].")
-                minus_massa(weight, height)
-            elif 30 < BMI <= 35:
-                print("У вас [yellow]ожирение 1 степени[/yellow].")
-                minus_massa(weight, height)
-            elif 35 < BMI <= 40:
-                print("У вас [red]ожирение 2 степени[/red].")
-                minus_massa(weight, height)
-            elif BMI > 40:
-                print("У вас [dark_red]ожирение 3 степени[/dark_red].")
-                minus_massa(weight, height)
-        except:
-            print(":exclamation_mark: [bold underline red]Что-то пошло не так. Возможно, вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
+        if float(weight) <= 0 or float(height) <= 0:
+            print(":exclamation_mark: [bold underline red]Числа должны быть положительные.[/bold underline red] :exclamation_mark:")
+        else:
+            try:
+                weight = float(weight)
+                height = float(height)
+                height = height / 100
+                BMI = weight/(height**2)
+                BMI = round(BMI, 1)
+                for step in track(range(100), description="Вычисляем ..."):
+                    do_step(step)
+                print("")
+                print(f"[magenta]Ваш ИМТ:[/magenta] {BMI}.")
+                if BMI < 16:
+                    print("У вас [blue]выраженный дефицит массы[/blue].")
+                    plus_massa(weight, height)
+                elif 16 <= BMI <= 18.5:
+                    print("У вас [cyan]недостаточная масса[/cyan].")
+                    plus_massa(weight, height)
+                elif 18.5 < BMI <= 25:
+                    print("У вас [green]норма[/green].")
+                elif 25 < BMI <= 30:
+                    print("У вас [dark_green]избыточная масса (предожирение)[/dark_green].")
+                    minus_massa(weight, height)
+                elif 30 < BMI <= 35:
+                    print("У вас [yellow]ожирение 1 степени[/yellow].")
+                    minus_massa(weight, height)
+                elif 35 < BMI <= 40:
+                    print("У вас [red]ожирение 2 степени[/red].")
+                    minus_massa(weight, height)
+                elif BMI > 40:
+                    print("У вас [dark_red]ожирение 3 степени[/dark_red].")
+                    minus_massa(weight, height)
+            except:
+                print(":exclamation_mark: [bold underline red]Что-то пошло не так. Возможно, вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
     elif choose == 2:
         print("")
         print("[underline blue]ИМТ[/underline blue] - индекс массы тела")
