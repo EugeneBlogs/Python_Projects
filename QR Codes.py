@@ -1,6 +1,5 @@
 '''
 Для создания QR-кодов используется библиотека "qrcode".
-Для определения стандартного пути (C:/Users/...) используется библиотека "os".
 Для распознования QR-кодов используется библиотека "opencv-python".
 '''
 
@@ -14,9 +13,6 @@ from tkinter import messagebox, simpledialog, filedialog
 import numpy as np
 import qrcode
 import cv2
-
-import os
-path = os.path.expanduser('~')
 
 window = Tk()
 window.title("QR-коды")
