@@ -6,7 +6,7 @@ from tkinter.messagebox import askyesno, showwarning, showerror
 from datetime import date, datetime
 
 print("!!!")
-print("В консоль будут выводится отчёты об ошибках. Чтобы консоль не открываласть - сохраните файл в формате '.pyw'.")
+print("В консоль будут выводится отчёты об ошибках. Чтобы консоль не открывалась - сохраните файл в формате '.pyw'.")
 print("!!!")
 
 current_text = ""
