@@ -168,6 +168,8 @@ m.add_command(label="Удалить все заметки", command=delete_notes
 c = Menu(window, tearoff=0)
 c.add_command(label="Создать заметку", command=new_note)
 c.add_command(label="Создать несколько заметок", command=few_notes)
+c.add_separator()
+c.add_command(label="Удалить все заметки", command=delete_notes)
 
 def context_menu(event):
     global name_current_widget
