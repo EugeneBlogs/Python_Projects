@@ -127,7 +127,8 @@ def calc_par_storony_ugol(sideA, sideB, angle):
     sideB = float(sideB)
     angle = float(angle)
     area = float(sideA * sideB * math.sin(convert_degrees_to_radians(angle)))
-    show_result(area)
+    formula = f"S = {sideA} * {sideB} * sin({angle}°)"
+    show_result(formula, area)
 
 def method_parallelogramm_diagonali_ugol():
     clear_extra_widgets()
@@ -211,7 +212,11 @@ def calc_pryamougolnik(sideA, sideB):
     sideA = float(sideA)
     sideB = float(sideB)
     area = float(sideA * sideB)
-    show_result(area)
+    if sideA == sideB:
+        formula = f"S = {sideA}²"
+    else:
+        formula = f"S = {sideA} * {sideB}"
+    show_result(formula, area)
 
 
 def figure_kvadrat():
@@ -367,7 +372,8 @@ def calc_trapecia(baseA, baseB, height):
     baseB = float(baseB)
     height = float(height)
     area = float((baseA + baseB) / 2 * height)
-    show_result(area)
+    formula = f"S = ½ * ({baseA} + {baseB}) * {height}"
+    show_result(formula, area)
 
 def method_trapecia_sred():
     clear_extra_widgets()
@@ -460,7 +466,11 @@ def calc_treug_storona_vysota(base, height):
     base = float(base)
     height = float(height)
     area = float(base * height / 2)
-    show_result(area)
+    if base == height:
+        formula = f"S = ½ * {base}²"
+    else:
+        formula = f"S = ½ * {base} * {height}"
+    show_result(formula, area)
 
 def method_treugolnik_storony_ugol():
     clear_extra_widgets()
@@ -508,7 +518,8 @@ def calc_treug_storony_ugol(sideA, sideB, angle):
     sideB = float(sideB)
     angle = float(angle)
     area = float(sideA * sideB * math.sin(convert_degrees_to_radians(angle)) / 2)
-    show_result(area)
+    formula = f"S = ½ * {sideA} * {sideB} * sin({angle}°)"
+    show_result(formula, area)
 
 def method_treugolnik_geron():
     clear_extra_widgets()
@@ -557,7 +568,8 @@ def calc_treug_geron(sideA, sideB, sideC):
     sideC = float(sideC)
     poluperimetr = (sideA + sideB + sideC) / 2
     area = float(math.sqrt(poluperimetr*(poluperimetr-sideA)*(poluperimetr-sideB)*(poluperimetr-sideC)))
-    show_result(area)
+    formula = f"p = ½ * ({sideA} + {sideB} + {sideC})\nS = √{poluperimetr}*({poluperimetr}-{sideA})*({poluperimetr}-{sideB})*({poluperimetr}-{sideC})"
+    show_result(formula, area)
 
 def method_treugolnik_vpis_okr():
     clear_extra_widgets()
@@ -617,7 +629,8 @@ def calc_treug_vpis_okr(sideA, sideB, sideC, radius):
     radius = float(radius)
     poluperimetr = (sideA + sideB + sideC) / 2
     area = float(poluperimetr * radius)
-    show_result(area)
+    formula = f"p = ½ * ({sideA} + {sideB} + {sideC})\nS = {poluperimetr} * {radius}"
+    show_result(formula, area)
 
 def method_treugolnik_opis_okr():
     clear_extra_widgets()
@@ -676,7 +689,8 @@ def calc_treug_opis_okr(sideA, sideB, sideC, radius):
     sideC = float(sideC)
     radius = float(radius)
     area = float(sideA * sideB * sideC / 4 / radius)
-    show_result(area)
+    formula = f"S = ({sideA} * {sideB} * {sideC}) / (4 * {radius})"
+    show_result(formula, area)
 
 def figure_krug():
     clear_extra_widgets()
@@ -705,7 +719,8 @@ def figure_krug():
 def calc_krug(radius):
     radius = float(radius)
     area = float(math.pi * radius**2)
-    show_result(area)
+    formula = f"π ≈ 3.1415926535\nS = π * {radius}²"
+    show_result(formula, area)
 
 def figure_sektor():
     clear_extra_widgets()
@@ -745,7 +760,8 @@ def calc_sektor(radius, duga):
     radius = float(radius)
     duga = float(duga)
     area = float(math.pi * radius**2 * duga / 360)
-    show_result(area)
+    formula = f"π ≈ 3.1415926535\nS = (π * {radius}² * {duga}°) / 360°"
+    show_result(formula, area)
 
 def figure_4ugolnik():
     clear_extra_widgets()
@@ -864,7 +880,8 @@ def calc_4ugolnik_storony(sideA, sideB, sideC, sideD):
     sideD = float(sideD)
     poluperimetr = (sideA + sideB + sideC + sideD) / 2
     area = float(math.sqrt((poluperimetr - sideA) * (poluperimetr - sideB) * (poluperimetr - sideC) * (poluperimetr - sideD)))
-    show_result(area)
+    formula = f"p = ½ * ({sideA} + {sideB} + {sideC} + {sideD})\nS = √({poluperimetr}-{sideA})*({poluperimetr}-{sideB})*({poluperimetr}-{sideC})*({poluperimetr}-{sideD})"
+    show_result(formula, area)
 
 def method_4ugolnik_radius():
     clear_extra_widgets()
@@ -935,13 +952,14 @@ def calc_4ugolnik_radius(sideA, sideB, sideC, sideD, radius):
     radius = float(radius)
     poluperimetr = (sideA + sideB + sideC + sideD) / 2
     area = float(poluperimetr * radius)
-    show_result(area)
+    formula = f"p = ½ * ({sideA} + {sideB} + {sideC} + {sideD})\nS = {poluperimetr} * {radius}"
+    show_result(formula, area)
 
 def convert_degrees_to_radians(alpha):
     return math.pi / 180 * alpha
-def show_result(area):
+def show_result(formula, area):
     area = round(area, 2)
-    messagebox.showinfo('Результат', f'Площадь равна {area}.')
+    messagebox.showinfo('Результат', f'Площадь равна: {area}.\n\nРешение:\n{formula} = {area}.')
 
 
 frame = Frame(
@@ -969,7 +987,6 @@ figures = ["Параллелограмм",
            "Четырёхугольник"]
 combobox = Combobox(frame, values=figures, width=30, state="readonly")
 combobox.grid(row=2, column=1)
-combobox.set("Параллелограмм")
 combobox.bind("<<ComboboxSelected>>", selected)
 
 method_lbl = Label(
