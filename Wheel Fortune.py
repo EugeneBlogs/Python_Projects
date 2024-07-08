@@ -9,7 +9,7 @@ print("!!!")
 
 window = Tk()
 window.title("Колесо фортуны")
-window.geometry("550x450")
+window.geometry("650x500")
 
 variants = []
 enabled = IntVar()
@@ -57,7 +57,38 @@ def random_order():
     else:
         messagebox.showerror("Ошибка", "Что-то пошло не так. Возможно, вы не добавили элементы.")
 
+def cube():
+    num = random.randint(1, 6)
+    messagebox.showinfo("Результат", f'Выпало число {num}.')
 
+def coin():
+    num = random.randint(1, 2)
+    if num == 1:
+        messagebox.showinfo("Результат", f'Выпал ОРЁЛ.')
+    elif num == 2:
+        messagebox.showinfo("Результат", f'Выпала РЕШКА.')
+
+def yn():
+    num = random.randint(1, 2)
+    if num == 1:
+        messagebox.showinfo("Результат", f'Да.')
+    elif num == 2:
+        messagebox.showinfo("Результат", f'Нет.')
+
+def ticket():
+    num1 = random.randint(0, 9)
+    num2 = random.randint(0, 9)
+    num3 = random.randint(0, 9)
+    num4 = random.randint(0, 9)
+    num5 = random.randint(0, 9)
+    num6 = random.randint(0, 9)
+    sum_left = num1 + num2 + num3
+    sum_right = num4 + num5 + num6
+    number = f"{num1}{num2}{num3}{num4}{num5}{num6}"
+    if sum_left == sum_right:
+        messagebox.showinfo("Результат", f'Билет №{number} оказался СЧАСТЛИВЫМ!')
+    else:
+        messagebox.showinfo("Результат", f'Билет №{number} оказался НЕСЧАСТЛИВЫМ.')
 
 frame = Frame(
    window,
@@ -68,6 +99,7 @@ frame.pack(expand=True)
 
 text = Entry(
     frame,
+    width=15,
     font=("Cambria", 14)
 )
 text.grid(row=1, column=1, padx=5, pady=5)
@@ -79,7 +111,7 @@ add_btn = Button(
         foreground="black",
         background="lawngreen",
         font=("Cambria", 10),
-        width=10,
+        width=15,
         command=lambda: add()
 )
 add_btn.grid(row=1, column=2, padx=5, pady=5)
@@ -91,7 +123,7 @@ delete_btn = Button(
         foreground="black",
         background="orange",
         font=("Cambria", 10),
-        width=10,
+        width=15,
         command=lambda: delete()
 )
 delete_btn.grid(row=1, column=3, padx=5, pady=5)
@@ -103,7 +135,7 @@ delete_all_btn = Button(
         foreground="black",
         background="red",
         font=("Cambria", 10),
-        width=10,
+        width=15,
         command=lambda: delete_all()
 )
 delete_all_btn.grid(row=1, column=4, padx=5, pady=5)
@@ -123,7 +155,6 @@ choose_btn = Button(
         foreground="black",
         background="yellow",
         font=("Cambria", 12),
-        width=10,
         command=lambda: choose()
 )
 choose_btn.grid(row=3, column=1, columnspan=4, sticky=EW, pady=5)
@@ -135,17 +166,64 @@ random_btn = Button(
         foreground="white",
         background="blue",
         font=("Cambria", 12),
-        width=10,
         command=lambda: random_order()
 )
 random_btn.grid(row=4, column=1, columnspan=4, sticky=EW, pady=5)
+
+cube_btn = Button(
+        frame,
+        text="Игральная кость",
+        cursor="hand2",
+        foreground="white",
+        background="black",
+        font=("Cambria", 10),
+        width=25,
+        command=lambda: cube()
+)
+cube_btn.grid(row=5, column=1, padx=5, pady=5)
+
+coin_btn = Button(
+        frame,
+        text="Монетка",
+        cursor="hand2",
+        foreground="white",
+        background="darkgoldenrod",
+        font=("Cambria", 10),
+        width=15,
+        command=lambda: coin()
+)
+coin_btn.grid(row=5, column=2, padx=5, pady=5)
+
+yn_btn = Button(
+        frame,
+        text="Да/Нет",
+        cursor="hand2",
+        foreground="white",
+        background="mediumpurple",
+        font=("Cambria", 10),
+        width=15,
+        command=lambda: yn()
+)
+yn_btn.grid(row=5, column=3, padx=5, pady=5)
+
+ticket_btn = Button(
+        frame,
+        text="Билет",
+        cursor="hand2",
+        foreground="black",
+        background="deeppink1",
+        font=("Cambria", 10),
+        width=15,
+        command=lambda: ticket()
+)
+ticket_btn.grid(row=5, column=4, padx=5, pady=5)
 
 checkbutton = Checkbutton(
     frame,
     text="Очищать поле автоматически",
     variable=enabled
 )
-checkbutton.grid(row=5, column=1, columnspan=4, pady=5)
+checkbutton.grid(row=6, column=1, columnspan=4, pady=5)
 checkbutton.select()
 
 window.mainloop()
