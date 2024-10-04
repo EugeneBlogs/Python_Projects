@@ -14,9 +14,10 @@ import base64
 from tkinter import *
 from tkinter.ttk import Combobox
 from tkinter import messagebox, filedialog
+from tkinter.messagebox import WARNING
 
 window = Tk()
-window.title("Генерация фото")
+window.title("Генератор изображений")
 window.geometry("650x550")
 window.option_add("*tearOff", FALSE)
 
@@ -72,7 +73,7 @@ header_lbl = Label(
     font=("Arial", 20),
     fg="red"
 )
-header_lbl.grid(row=1, column=2, pady=10)
+header_lbl.grid(row=1, column=2, pady=15)
 
 info_lbl = Label(
    frame,
@@ -87,13 +88,27 @@ lbl = Label(
     font=("Arial", 16),
     fg="blue"
 )
-lbl.grid(row=3, column=1, pady=30)
+lbl.grid(row=3, column=1, pady=15)
 name_photo = Entry(
     frame,
     font=("Arial", 16),
     width=30
 )
 name_photo.grid(row=3, column=2)
+
+lbl = Label(
+   frame,
+   text="Количество генераций",
+    font=("Arial", 16),
+    fg="blue"
+)
+lbl.grid(row=4, column=1, pady=15)
+count_gen = Entry(
+    frame,
+    font=("Arial", 16),
+    width=30
+)
+count_gen.grid(row=4, column=2)
 
 formats = ["Квадрат", "Горизонтально", "Вертикально"]
 lbl = Label(
@@ -102,9 +117,9 @@ lbl = Label(
     font=("Arial", 16),
     fg="blue"
 )
-lbl.grid(row=4, column=1, pady=10)
+lbl.grid(row=5, column=1, pady=15)
 combobox_format = Combobox(frame, values=formats, width=30, font=("Arial", 16), state="readonly")
-combobox_format.grid(row=4, column=2)
+combobox_format.grid(row=5, column=2)
 
 types = ["Кандинский", "Детальное фото", "Аниме", "Обычный"]
 lbl = Label(
@@ -113,9 +128,9 @@ lbl = Label(
     font=("Arial", 16),
     fg="blue"
 )
-lbl.grid(row=5, column=1, pady=10)
+lbl.grid(row=6, column=1, pady=15)
 combobox_type = Combobox(frame, values=types, width=30, font=("Arial", 16), state="readonly")
-combobox_type.grid(row=5, column=2)
+combobox_type.grid(row=6, column=2)
 
 lbl = Label(
    frame,
@@ -123,13 +138,13 @@ lbl = Label(
     font=("Arial", 16),
     fg="blue"
 )
-lbl.grid(row=6, column=1, pady=10)
+lbl.grid(row=7, column=1, pady=15)
 text_photo = Entry(
     frame,
     font=("Arial", 16),
     width=30
 )
-text_photo.grid(row=6, column=2)
+text_photo.grid(row=7, column=2)
 
 gen_btn = Button(
         frame,
@@ -141,7 +156,7 @@ gen_btn = Button(
         width=30,
         command=lambda: generate_request()
 )
-gen_btn.grid(row=7, column=2, pady=30)
+gen_btn.grid(row=8, column=2, pady=30)
 
 
 def generate_request():
@@ -149,6 +164,13 @@ def generate_request():
     format = combobox_format.get()
     type = combobox_type.get()
     prompt = text_photo.get().lower()
+    count = count_gen.get()
+    try:
+        count = int(count)
+        if count <= 0:
+            count = 1
+    except:
+        count = 1
     if name == "" or format == "" or type == "" or prompt == "":
         messagebox.showerror("Ошибка", f"Необходимо заполнить все поля!")
     else:
@@ -173,24 +195,37 @@ def generate_request():
             style = 2
         elif type == "Обычный":
             style = 3
-        send_request(name, prompt, width, height, style)
 
-def send_request(name, prompt, w, h, s):
+        continue_gen = True
+        if count >= 10:
+            continue_gen = messagebox.askokcancel("Внимание!", "Слишком большое количество изображений может привести к зависанию программы.",icon=WARNING)
+        if continue_gen:
+            send_request(name, prompt, width, height, style, count)
+
+def send_request(name, prompt, w, h, s, count):
     try:
-        api = Text2ImageAPI('https://api-key.fusionbrain.ai/', '72AB335102A9D57C5A2440F9D724FEDA',
-                            'CB4B5DD258A6F04C4BCB20F97BF2D20B')
-        model_id = api.get_model()
-        uuid = api.generate(prompt, model_id, style=s, width=w, height=h)
-        images = api.check_generation(uuid)
-        image_base64 = images[0]
-        image_data = base64.b64decode(image_base64)
         path = filedialog.askdirectory(title="Открыть папку", initialdir="/")
         if path:
-            resilt_path = f"{path}/{name}.png"
-            with open(resilt_path, "wb") as file:
-                file.write(image_data)
-                gen_btn.text = "Сгенерировать изображение"
+            api = Text2ImageAPI('https://api-key.fusionbrain.ai/', '72AB335102A9D57C5A2440F9D724FEDA','CB4B5DD258A6F04C4BCB20F97BF2D20B')
+            model_id = api.get_model()
+            for i in range(count):
+                window.title(f"Генерация изображений: {i + 1}/{count}")
+                uuid = api.generate(prompt, model_id, style=s, width=w, height=h)
+                images = api.check_generation(uuid)
+                image_base64 = images[0]
+                image_data = base64.b64decode(image_base64)
+                if count == 1:
+                    resilt_path = f"{path}/{name}.png"
+                else:
+                    resilt_path = f"{path}/{name} {i+1}.png"
+                with open(resilt_path, "wb") as file:
+                    file.write(image_data)
+                    time.sleep(1)
+            if count == 1:
                 messagebox.showinfo("Успешно", f"Изображение «{name}» сохранено по адресу «{path}».")
+            else:
+                messagebox.showinfo("Успешно", f"{count} изображений «{name}» сохранены по адресу «{path}».")
+            window.title("Генератор изображений")
     except:
         messagebox.showerror("Ошибка", f"При генерации изображения произошла ошибка!")
 
