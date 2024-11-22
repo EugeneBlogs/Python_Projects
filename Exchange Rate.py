@@ -57,9 +57,9 @@ try:
         src_belorus = request_belorus.text
         print("Курс белорусского рубля получен ✓")
 
-        after = '<div data-test="text" class="Text__sc-j452t5-0 bCCQWi">'
+        after = '<div data-test="text" class="Text__sc-vycpdy-0 jBQTbF">'
         print("")
-        
+
         dollar = src_dollar[src_dollar.find(after)+len(after):].split()[0]
         dollar = dollar.replace(",", ".")
         dollar = float(dollar)
