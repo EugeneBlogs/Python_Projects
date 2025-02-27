@@ -161,7 +161,7 @@ choose_btn.grid(row=3, column=1, columnspan=4, sticky=EW, pady=5)
 
 random_btn = Button(
         frame,
-        text="Расположить в слуяайном порядке",
+        text="Расположить в случайном порядке",
         cursor="hand2",
         foreground="white",
         background="blue",
