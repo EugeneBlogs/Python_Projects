@@ -1,7 +1,7 @@
 import math
 from tkinter import *
-from tkinter.ttk import Combobox
 from tkinter import messagebox
+from tkinter.ttk import Combobox
 
 print("!!!")
 print("В консоль будут выводится отчёты об ошибках. Чтобы консоль не открывалась - сохраните файл в формате '.pyw'.")
@@ -10,6 +10,7 @@ print("!!!")
 window = Tk()
 window.title("Калькулятор площадей фигур")
 window.geometry("550x450")
+
 
 def selected(event):
     selection = combobox.get()
@@ -32,6 +33,7 @@ def selected(event):
     elif selection == "Четырёхугольник":
         figure_4ugolnik()
 
+
 def figure_parallelogramm():
     clear_extra_widgets()
     methods = ["Через основание и высоту",
@@ -40,6 +42,8 @@ def figure_parallelogramm():
     method_combobox.config(values=methods, state="readonly")
     method_combobox.set("Через основание и высоту")
     method_combobox.bind("<<ComboboxSelected>>", selected_method_parallelogramm)
+
+
 def selected_method_parallelogramm(event):
     selection = method_combobox.get()
     if selection == "Через основание и высоту":
@@ -48,6 +52,7 @@ def selected_method_parallelogramm(event):
         method_parallelogramm_storony_ugol()
     elif selection == "Через диагонали и угол":
         method_parallelogramm_diagonali_ugol()
+
 
 def method_parallelogramm_storona_vysota():
     clear_extra_widgets()
@@ -80,6 +85,7 @@ def method_parallelogramm_storona_vysota():
         command=lambda: calc_pryamougolnik(base_ent.get(), height_ent.get())
     )
     calc_btn.grid(row=7, column=2)
+
 
 def method_parallelogramm_storony_ugol():
     clear_extra_widgets()
@@ -122,6 +128,8 @@ def method_parallelogramm_storony_ugol():
         command=lambda: calc_par_storony_ugol(sideA_ent.get(), sideB_ent.get(), angle_ent.get())
     )
     calc_btn.grid(row=8, column=2)
+
+
 def calc_par_storony_ugol(sideA, sideB, angle):
     sideA = float(sideA)
     sideB = float(sideB)
@@ -129,6 +137,7 @@ def calc_par_storony_ugol(sideA, sideB, angle):
     area = float(sideA * sideB * math.sin(convert_degrees_to_radians(angle)))
     formula = f"S = {sideA} * {sideB} * sin({angle}°)"
     show_result(formula, area)
+
 
 def method_parallelogramm_diagonali_ugol():
     clear_extra_widgets()
@@ -208,6 +217,8 @@ def figure_pryamougolnik():
         command=lambda: calc_pryamougolnik(sideA_ent.get(), sideB_ent.get())
     )
     calc_btn.grid(row=7, column=2)
+
+
 def calc_pryamougolnik(sideA, sideB):
     sideA = float(sideA)
     sideB = float(sideB)
@@ -226,12 +237,15 @@ def figure_kvadrat():
     method_combobox.config(values=methods, state="readonly")
     method_combobox.set("Через квадрат стороны")
     method_combobox.bind("<<ComboboxSelected>>", selected_method_kvadrat)
+
+
 def selected_method_kvadrat(event):
     selection = method_combobox.get()
     if selection == "Через квадрат стороны":
         method_kvadrat_storona()
     elif selection == "Через квадрат диагонали":
         method_kvadrat_diagonal()
+
 
 def method_kvadrat_storona():
     clear_extra_widgets()
@@ -254,6 +268,8 @@ def method_kvadrat_storona():
         command=lambda: calc_pryamougolnik(side_ent.get(), side_ent.get())
     )
     calc_btn.grid(row=6, column=2)
+
+
 def method_kvadrat_diagonal():
     clear_extra_widgets()
     diagonal_lbl = Label(
@@ -275,6 +291,7 @@ def method_kvadrat_diagonal():
         command=lambda: calc_treug_storona_vysota(diagonal_ent.get(), diagonal_ent.get())
     )
     calc_btn.grid(row=6, column=2)
+
 
 def figure_romb():
     clear_extra_widgets()
@@ -319,12 +336,15 @@ def figure_trapecia():
     method_combobox.config(values=methods, state="readonly")
     method_combobox.set("Через основания и высоту")
     method_combobox.bind("<<ComboboxSelected>>", selected_method_trapecia)
+
+
 def selected_method_trapecia(event):
     selection = method_combobox.get()
     if selection == "Через основания и высоту":
         method_trapecia_osnovaniya()
     elif selection == "Через среднюю линюю":
         method_trapecia_sred()
+
 
 def method_trapecia_osnovaniya():
     clear_extra_widgets()
@@ -367,6 +387,8 @@ def method_trapecia_osnovaniya():
         command=lambda: calc_trapecia(baseA_ent.get(), baseB_ent.get(), height_ent.get())
     )
     calc_btn.grid(row=8, column=2)
+
+
 def calc_trapecia(baseA, baseB, height):
     baseA = float(baseA)
     baseB = float(baseB)
@@ -374,6 +396,7 @@ def calc_trapecia(baseA, baseB, height):
     area = float((baseA + baseB) / 2 * height)
     formula = f"S = ½ * ({baseA} + {baseB}) * {height}"
     show_result(formula, area)
+
 
 def method_trapecia_sred():
     clear_extra_widgets()
@@ -418,6 +441,8 @@ def figure_treugolnik():
     method_combobox.config(values=methods, state="readonly")
     method_combobox.set("Через сторону и высоту")
     method_combobox.bind("<<ComboboxSelected>>", selected_method_treugolnik)
+
+
 def selected_method_treugolnik(event):
     selection = method_combobox.get()
     if selection == "Через основание и высоту":
@@ -430,6 +455,7 @@ def selected_method_treugolnik(event):
         method_treugolnik_vpis_okr()
     elif selection == "Через радиус описанной окружности":
         method_treugolnik_opis_okr()
+
 
 def method_treugolnik_storona_vysota():
     clear_extra_widgets()
@@ -462,6 +488,8 @@ def method_treugolnik_storona_vysota():
         command=lambda: calc_treug_storona_vysota(base_ent.get(), height_ent.get())
     )
     calc_btn.grid(row=7, column=2)
+
+
 def calc_treug_storona_vysota(base, height):
     base = float(base)
     height = float(height)
@@ -471,6 +499,7 @@ def calc_treug_storona_vysota(base, height):
     else:
         formula = f"S = ½ * {base} * {height}"
     show_result(formula, area)
+
 
 def method_treugolnik_storony_ugol():
     clear_extra_widgets()
@@ -513,6 +542,8 @@ def method_treugolnik_storony_ugol():
         command=lambda: calc_treug_storony_ugol(sideA_ent.get(), sideB_ent.get(), angle_ent.get())
     )
     calc_btn.grid(row=8, column=2)
+
+
 def calc_treug_storony_ugol(sideA, sideB, angle):
     sideA = float(sideA)
     sideB = float(sideB)
@@ -520,6 +551,7 @@ def calc_treug_storony_ugol(sideA, sideB, angle):
     area = float(sideA * sideB * math.sin(convert_degrees_to_radians(angle)) / 2)
     formula = f"S = ½ * {sideA} * {sideB} * sin({angle}°)"
     show_result(formula, area)
+
 
 def method_treugolnik_geron():
     clear_extra_widgets()
@@ -562,14 +594,18 @@ def method_treugolnik_geron():
         command=lambda: calc_treug_geron(sideA_ent.get(), sideB_ent.get(), sideC_ent.get())
     )
     calc_btn.grid(row=8, column=2)
+
+
 def calc_treug_geron(sideA, sideB, sideC):
     sideA = float(sideA)
     sideB = float(sideB)
     sideC = float(sideC)
     poluperimetr = (sideA + sideB + sideC) / 2
-    area = float(math.sqrt(poluperimetr*(poluperimetr-sideA)*(poluperimetr-sideB)*(poluperimetr-sideC)))
-    formula = f"p = ½ * ({sideA} + {sideB} + {sideC})\nS = √{poluperimetr}*({poluperimetr}-{sideA})*({poluperimetr}-{sideB})*({poluperimetr}-{sideC})"
+    area = float(math.sqrt(poluperimetr * (poluperimetr - sideA) * (poluperimetr - sideB) * (poluperimetr - sideC)))
+    formula = (f"p = ½ * ({sideA} + {sideB} + {sideC})\nS = "
+               f"√{poluperimetr}*({poluperimetr}-{sideA})*({poluperimetr}-{sideB})*({poluperimetr}-{sideC})")
     show_result(formula, area)
+
 
 def method_treugolnik_vpis_okr():
     clear_extra_widgets()
@@ -622,6 +658,8 @@ def method_treugolnik_vpis_okr():
         command=lambda: calc_treug_vpis_okr(sideA_ent.get(), sideB_ent.get(), sideC_ent.get(), radius_ent.get())
     )
     calc_btn.grid(row=9, column=2)
+
+
 def calc_treug_vpis_okr(sideA, sideB, sideC, radius):
     sideA = float(sideA)
     sideB = float(sideB)
@@ -631,6 +669,7 @@ def calc_treug_vpis_okr(sideA, sideB, sideC, radius):
     area = float(poluperimetr * radius)
     formula = f"p = ½ * ({sideA} + {sideB} + {sideC})\nS = {poluperimetr} * {radius}"
     show_result(formula, area)
+
 
 def method_treugolnik_opis_okr():
     clear_extra_widgets()
@@ -683,6 +722,8 @@ def method_treugolnik_opis_okr():
         command=lambda: calc_treug_opis_okr(sideA_ent.get(), sideB_ent.get(), sideC_ent.get(), radius_ent.get())
     )
     calc_btn.grid(row=9, column=2)
+
+
 def calc_treug_opis_okr(sideA, sideB, sideC, radius):
     sideA = float(sideA)
     sideB = float(sideB)
@@ -691,6 +732,7 @@ def calc_treug_opis_okr(sideA, sideB, sideC, radius):
     area = float(sideA * sideB * sideC / 4 / radius)
     formula = f"S = ({sideA} * {sideB} * {sideC}) / (4 * {radius})"
     show_result(formula, area)
+
 
 def figure_krug():
     clear_extra_widgets()
@@ -716,11 +758,14 @@ def figure_krug():
         command=lambda: calc_krug(radius_ent.get())
     )
     calc_btn.grid(row=6, column=2)
+
+
 def calc_krug(radius):
     radius = float(radius)
-    area = float(math.pi * radius**2)
+    area = float(math.pi * radius ** 2)
     formula = f"π ≈ 3.1415926535\nS = π * {radius}²"
     show_result(formula, area)
+
 
 def figure_sektor():
     clear_extra_widgets()
@@ -756,12 +801,15 @@ def figure_sektor():
         command=lambda: calc_sektor(radius_ent.get(), duga_ent.get())
     )
     calc_btn.grid(row=7, column=2)
+
+
 def calc_sektor(radius, duga):
     radius = float(radius)
     duga = float(duga)
-    area = float(math.pi * radius**2 * duga / 360)
+    area = float(math.pi * radius ** 2 * duga / 360)
     formula = f"π ≈ 3.1415926535\nS = (π * {radius}² * {duga}°) / 360°"
     show_result(formula, area)
+
 
 def figure_4ugolnik():
     clear_extra_widgets()
@@ -771,6 +819,8 @@ def figure_4ugolnik():
     method_combobox.config(values=methods, state="readonly")
     method_combobox.set("Через диагонали и угол")
     method_combobox.bind("<<ComboboxSelected>>", selected_method_4ugolnik)
+
+
 def selected_method_4ugolnik(event):
     selection = method_combobox.get()
     if selection == "Через диагонали и угол":
@@ -779,6 +829,7 @@ def selected_method_4ugolnik(event):
         method_4ugolnik_storony()
     elif selection == "Через радиус вписанной окружности":
         method_4ugolnik_radius()
+
 
 def method_4ugolnik_diagonali_ugol():
     clear_extra_widgets()
@@ -821,6 +872,7 @@ def method_4ugolnik_diagonali_ugol():
         command=lambda: calc_treug_storony_ugol(diagonalA_ent.get(), diagonalB_ent.get(), angle_ent.get())
     )
     calc_btn.grid(row=8, column=2)
+
 
 def method_4ugolnik_storony():
     clear_extra_widgets()
@@ -873,15 +925,20 @@ def method_4ugolnik_storony():
         command=lambda: calc_4ugolnik_storony(sideA_ent.get(), sideB_ent.get(), sideC_ent.get(), sideD_ent.get())
     )
     calc_btn.grid(row=9, column=2)
+
+
 def calc_4ugolnik_storony(sideA, sideB, sideC, sideD):
     sideA = float(sideA)
     sideB = float(sideB)
     sideC = float(sideC)
     sideD = float(sideD)
     poluperimetr = (sideA + sideB + sideC + sideD) / 2
-    area = float(math.sqrt((poluperimetr - sideA) * (poluperimetr - sideB) * (poluperimetr - sideC) * (poluperimetr - sideD)))
-    formula = f"p = ½ * ({sideA} + {sideB} + {sideC} + {sideD})\nS = √({poluperimetr}-{sideA})*({poluperimetr}-{sideB})*({poluperimetr}-{sideC})*({poluperimetr}-{sideD})"
+    area = float(
+        math.sqrt((poluperimetr - sideA) * (poluperimetr - sideB) * (poluperimetr - sideC) * (poluperimetr - sideD)))
+    formula = (f"p = ½ * ({sideA} + {sideB} + {sideC} + {sideD})\nS = "
+               f"√({poluperimetr}-{sideA})*({poluperimetr}-{sideB})*({poluperimetr}-{sideC})*({poluperimetr}-{sideD})")
     show_result(formula, area)
+
 
 def method_4ugolnik_radius():
     clear_extra_widgets()
@@ -941,9 +998,12 @@ def method_4ugolnik_radius():
         cursor="hand2",
         foreground="#006400",
         background="#00ff00",
-        command=lambda: calc_4ugolnik_radius(sideA_ent.get(), sideB_ent.get(), sideC_ent.get(), sideD_ent.get(), radius_ent.get())
+        command=lambda: calc_4ugolnik_radius(sideA_ent.get(), sideB_ent.get(), sideC_ent.get(), sideD_ent.get(),
+                                             radius_ent.get())
     )
     calc_btn.grid(row=10, column=2)
+
+
 def calc_4ugolnik_radius(sideA, sideB, sideC, sideD, radius):
     sideA = float(sideA)
     sideB = float(sideB)
@@ -955,23 +1015,26 @@ def calc_4ugolnik_radius(sideA, sideB, sideC, sideD, radius):
     formula = f"p = ½ * ({sideA} + {sideB} + {sideC} + {sideD})\nS = {poluperimetr} * {radius}"
     show_result(formula, area)
 
+
 def convert_degrees_to_radians(alpha):
     return math.pi / 180 * alpha
+
+
 def show_result(formula, area):
     area = round(area, 2)
     messagebox.showinfo('Результат', f'Площадь равна: {area}.\n\nРешение:\n{formula} = {area}.')
 
 
 frame = Frame(
-   window,
-   padx = 10,
-   pady = 10
+    window,
+    padx=10,
+    pady=10
 )
 frame.pack(expand=True)
 
 figure_lbl = Label(
-   frame,
-   text="Выберите фигуру",
+    frame,
+    text="Выберите фигуру",
     font=("Calibri", 16)
 )
 figure_lbl.grid(row=1, column=1)
@@ -990,10 +1053,10 @@ combobox.grid(row=2, column=1)
 combobox.bind("<<ComboboxSelected>>", selected)
 
 method_lbl = Label(
-        frame,
-        text="Выберите метод",
-        font=("Calibri", 16)
-    )
+    frame,
+    text="Выберите метод",
+    font=("Calibri", 16)
+)
 method_lbl.grid(row=3, column=1)
 
 method_combobox = Combobox(frame, width=45, state="readonly")
@@ -1001,9 +1064,11 @@ method_combobox.grid(row=4, column=1)
 
 global_widgets = frame.winfo_children()
 
+
 def clear_extra_widgets():
     for widget in frame.winfo_children():
         if widget not in global_widgets:
             widget.destroy()
+
 
 window.mainloop()
