@@ -7,14 +7,11 @@ from tkinter import messagebox, simpledialog, colorchooser
 from tkinter.messagebox import askyesno
 
 import pickledb
+
 db = pickledb.load("./files/notes.db", True)
 
 current_row = 1
 current_column = 1
-
-print("!!!")
-print("В консоль будут выводится отчёты об ошибках. Чтобы консоль не открывалась - сохраните файл в формате '.pyw'.")
-print("!!!")
 
 window = Tk()
 window.title("Заметки")
@@ -22,17 +19,24 @@ window.geometry("920x770")
 window.option_add("*tearOff", FALSE)
 window.resizable(width=False, height=False)
 
+print("!!!")
+print("В консоль будут выводится отчёты об ошибках. Чтобы консоль не открывалась - сохраните файл в формате '.pyw'.")
+print("!!!")
+
 name_current_widget = ""
+
 
 def clear_extra_widgets():
     for widget in window.winfo_children():
         if widget not in global_widgets:
             widget.destroy()
 
+
 def copy_name():
     name = name_current_widget.replace(".text_", "")
     window.clipboard_clear()
     window.clipboard_append(name)
+
 
 def copy_text():
     name = name_current_widget.replace(".text_", "")
@@ -41,10 +45,12 @@ def copy_text():
     window.clipboard_clear()
     window.clipboard_append(text)
 
+
 def copy_select_text():
     text = window.nametowidget(name_current_widget).selection_get()
     window.clipboard_clear()
     window.clipboard_append(text)
+
 
 def copy_color():
     name = name_current_widget.replace(".text_", "")
@@ -55,6 +61,7 @@ def copy_color():
     hex = f"#{symbols[4]}{symbols[5]}{symbols[6]}{symbols[7]}{symbols[8]}{symbols[9]}"
     window.clipboard_clear()
     window.clipboard_append(hex)
+
 
 def delete_note():
     name = name_current_widget.replace(".text_", "")
@@ -67,6 +74,7 @@ def delete_note():
     clear_extra_widgets()
     create_notes()
 
+
 def delete_notes():
     if askyesno(title="Удалить все заметки", message=f"Вы действительно хотите удалить все заметки?"):
         try:
@@ -76,6 +84,7 @@ def delete_notes():
             messagebox.showerror("Ошибка", "Что-то пошло не так. Повторите попытку.")
     clear_extra_widgets()
     create_notes()
+
 
 def few_notes():
     count = simpledialog.askstring(title="Количество", prompt="Количество заметок")
@@ -87,7 +96,9 @@ def few_notes():
         new_note(count)
     else:
         messagebox.showerror("Ошибка", "Недопустимое число. Число должно быть в диапозоне от 1 до 20.")
-def new_note(repeat = 1):
+
+
+def new_note(repeat=1):
     for i in range(repeat):
         if len(db.getall()) < 20:
             color = str(colorchooser.askcolor(initialcolor="white"))
@@ -117,6 +128,7 @@ def new_note(repeat = 1):
                             messagebox.showerror("Ошибка", "Что-то пошло не так. Повторите попытку.")
         else:
             messagebox.showerror("Ошибка", "Нельзя превысить лимит заметок. Максимальное количество - 20.")
+
 
 def create_notes():
     try:
@@ -156,6 +168,7 @@ def create_notes():
     except:
         print("Созданных заметок ещё нет.")
 
+
 m = Menu(window, tearoff=0)
 m.add_command(label="Скопировать название", command=copy_name)
 m.add_command(label="Скопировать текст", command=copy_text)
@@ -171,6 +184,7 @@ c.add_command(label="Создать несколько заметок", command=
 c.add_separator()
 c.add_command(label="Удалить все заметки", command=delete_notes)
 
+
 def context_menu(event):
     global name_current_widget
     try:
@@ -181,6 +195,7 @@ def context_menu(event):
             m.tk_popup(event.x_root, event.y_root)
     finally:
         m.grab_release()
+
 
 window.bind("<Button-3>", context_menu)
 
