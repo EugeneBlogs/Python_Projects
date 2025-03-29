@@ -44,7 +44,7 @@ while True:
     print("")
     print(":ok_hand: [bold green]Программа загадала число.[/bold green] :ok_hand:")
 
-    while win == False:
+    while not win:
         print("")
         number = 0
         try:
