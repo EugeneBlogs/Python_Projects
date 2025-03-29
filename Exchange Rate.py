@@ -12,15 +12,13 @@
 4. Создайте 2 ссылки: "C:/Users/mylni/AppData/Local/Programs/Python/Python312" и "C:/Users/mylni/AppData/Local/Programs/Python/Python312/Scripts" (ссылки немного могут отличаться).
 '''
 
-from rich.console import Console
+import webbrowser
+from tkinter import *
+from tkinter import messagebox
+from tkinter.ttk import Combobox
 
 import requests
-
-from tkinter import *
-from tkinter.ttk import Combobox
-from tkinter import messagebox
-
-import webbrowser
+from rich.console import Console
 
 console = Console()
 
@@ -53,43 +51,45 @@ try:
         request_tenge = requests.get("https://www.banki.ru/products/currency/kzt/?ysclid=lxlywfex9a725827682", headers)
         src_tenge = request_tenge.text
         print("Курс тенге получен ✓")
-        request_belorus = requests.get("https://www.banki.ru/products/currency/byn/?ysclid=lxm3cd2g6c843406242", headers)
+        request_belorus = requests.get("https://www.banki.ru/products/currency/byn/?ysclid=lxm3cd2g6c843406242",
+                                       headers)
         src_belorus = request_belorus.text
         print("Курс белорусского рубля получен ✓")
 
         after = '<div data-test="text" class="Text__sc-vycpdy-0 jBQTbF">'
         print("")
 
-        dollar = src_dollar[src_dollar.find(after)+len(after):].split()[0]
+        dollar = src_dollar[src_dollar.find(after) + len(after):].split()[0]
         dollar = dollar.replace(",", ".")
         dollar = float(dollar)
         print("Курс доллара обработан ✓")
-        euro = src_euro[src_euro.find(after)+len(after):].split()[0]
+        euro = src_euro[src_euro.find(after) + len(after):].split()[0]
         euro = euro.replace(",", ".")
         euro = float(euro)
         print("Курс евро обработан ✓")
-        funt = src_funt[src_funt.find(after)+len(after):].split()[0]
+        funt = src_funt[src_funt.find(after) + len(after):].split()[0]
         funt = funt.replace(",", ".")
         funt = float(funt)
         print("Курс фунта обработан ✓")
-        zlot = src_zlot[src_zlot.find(after)+len(after):].split()[0]
+        zlot = src_zlot[src_zlot.find(after) + len(after):].split()[0]
         zlot = zlot.replace(",", ".")
         zlot = float(zlot)
         print("Курс злотого обработан ✓")
-        yuan = src_yuan[src_yuan.find(after)+len(after):].split()[0]
+        yuan = src_yuan[src_yuan.find(after) + len(after):].split()[0]
         yuan = yuan.replace(",", ".")
         yuan = float(yuan)
         print("Курс юаня обработан ✓")
-        tenge = src_tenge[src_tenge.find(after)+len(after):].split()[0]
+        tenge = src_tenge[src_tenge.find(after) + len(after):].split()[0]
         tenge = tenge.replace(",", ".")
         tenge = float(tenge)
         print("Курс тенге обработан ✓")
-        belorus = src_belorus[src_belorus.find(after)+len(after):].split()[0]
+        belorus = src_belorus[src_belorus.find(after) + len(after):].split()[0]
         belorus = belorus.replace(",", ".")
         belorus = float(belorus)
         print("Курс белорусского рубля обработан ✓")
 except:
-    messagebox.showerror(title="Ошибка", message="Что-то пошло не так. Возможно, отсутствует подключение к интернету, либо на сайте \"Банки.Ру\" возникли проблемы.")
+    messagebox.showerror(title="Ошибка", message="Что-то пошло не так. Возможно, отсутствует подключение к интернету, "
+                                                 "либо на сайте \"Банки.Ру\" возникли проблемы.")
     raise SystemExit
 
 print("")
@@ -102,29 +102,47 @@ window.title(f"Курс валют")
 window.geometry("700x400")
 window.option_add("*tearOff", FALSE)
 
+
 def current_couse():
-    messagebox.showinfo('Результат', f'1$ = {dollar}₽\n1€ = {euro}₽\n1£ = {funt}₽\n1zł = {zlot}₽\n1¥ = {yuan}₽\n1₸ = {tenge}₽\n1Br = {belorus}₽')
+    messagebox.showinfo('Результат', f'1$ = {dollar}₽\n1€ = {euro}₽\n1£ = {funt}₽\n1zł = {zlot}₽\n'
+                                     f'1¥ = {yuan}₽\n1₸ = {tenge}₽\n1Br = {belorus}₽')
+
 
 def siteUSD():
     webbrowser.open('https://www.banki.ru/products/currency/usd/?ysclid=lxlwjyi46d368077000', new=2)
+
+
 def siteEUR():
     webbrowser.open('https://www.banki.ru/products/currency/eur/?ysclid=lxlwynupj5785684786', new=2)
+
+
 def siteGBR():
     webbrowser.open('https://www.banki.ru/products/currency/gbp/?ysclid=lxlxw32q78674110939', new=2)
+
+
 def sitePLN():
     webbrowser.open('https://www.banki.ru/products/currency/pln/?ysclid=lxlwyskp4x408665150', new=2)
+
+
 def siteCNY():
     webbrowser.open('https://www.banki.ru/products/currency/cny/?ysclid=lxlxw64sjc29349328', new=2)
+
+
 def siteKZT():
     webbrowser.open('https://www.banki.ru/products/currency/byn/?ysclid=lxm3cd2g6c843406242', new=2)
+
+
 def siteBYN():
     webbrowser.open('https://www.banki.ru/products/currency/byn/?ysclid=lxm3cd2g6c843406242', new=2)
+
 
 def selected_from(event):
     combobox_to.set("Российский Рубль (RUB)")
 
+
 def selected_to(event):
     combobox_from.set("Российский Рубль (RUB)")
+
 
 def convert():
     from_currency = combobox_from.get()
@@ -195,19 +213,20 @@ def convert():
             result = round(result, 1)
             messagebox.showinfo('Результат', f'{number}Br = {result}₽')
 
+
 currencies = ["Российский Рубль (RUB)",
-           "Доллар (USD)",
-           "Евро (EUR)",
-           "Британский Фунт Стерлингов (GBR)",
-           "Польский Злотый (PLN)",
-           "Китайский Юань (CNY)",
-           "Казахстанский Тенге (KZT)",
-           "Белорусский Рубль (BYN)"]
+              "Доллар (USD)",
+              "Евро (EUR)",
+              "Британский Фунт Стерлингов (GBR)",
+              "Польский Злотый (PLN)",
+              "Китайский Юань (CNY)",
+              "Казахстанский Тенге (KZT)",
+              "Белорусский Рубль (BYN)"]
 
 frame = Frame(
-   window,
-   padx = 10,
-   pady = 10
+    window,
+    padx=10,
+    pady=10
 )
 frame.pack(expand=True)
 
@@ -225,24 +244,24 @@ main_menu.add_cascade(label="Источник информации", menu=sites_
 window.config(menu=main_menu)
 
 header_lbl = Label(
-   frame,
-   text="Курс валют",
+    frame,
+    text="Курс валют",
     font=("Times New Roman", 20),
     fg="blue"
 )
 header_lbl.grid(row=1, column=2)
 
 info_lbl = Label(
-   frame,
-   text='Информация получена с сайта "Банки.Ру"\nи обновляется при каждом запуске программы.',
+    frame,
+    text='Информация получена с сайта "Банки.Ру"\nи обновляется при каждом запуске программы.',
     font=("Times New Roman", 12)
 )
 info_lbl.grid(row=2, column=2, pady=7)
 
 number_lbl = Label(
-   frame,
-   text="Число",
-   font=("Times New Roman", 16)
+    frame,
+    text="Число",
+    font=("Times New Roman", 16)
 )
 number_lbl.grid(row=3, column=1, pady=10)
 number_ent = Entry(
@@ -251,8 +270,8 @@ number_ent = Entry(
 number_ent.grid(row=3, column=3)
 
 from_lbl = Label(
-   frame,
-   text="Из валюты",
+    frame,
+    text="Из валюты",
     font=("Times New Roman", 16)
 )
 from_lbl.grid(row=4, column=1, pady=10)
@@ -261,10 +280,9 @@ combobox_from.grid(row=4, column=3)
 combobox_from.set("Российский Рубль (RUB)")
 combobox_from.bind("<<ComboboxSelected>>", selected_from)
 
-
 to_lbl = Label(
-   frame,
-   text="В валюту",
+    frame,
+    text="В валюту",
     font=("Times New Roman", 16)
 )
 to_lbl.grid(row=5, column=1, pady=10)
@@ -274,12 +292,12 @@ combobox_to.set("Российский Рубль (RUB)")
 combobox_to.bind("<<ComboboxSelected>>", selected_to)
 
 calc_btn = Button(
-        frame,
-        text="Перевести",
-        cursor="hand2",
-        foreground="#00ff00",
-        background="#008000",
-        command=lambda: convert()
+    frame,
+    text="Перевести",
+    cursor="hand2",
+    foreground="#00ff00",
+    background="#008000",
+    command=lambda: convert()
 )
 calc_btn.grid(row=6, column=2)
 
