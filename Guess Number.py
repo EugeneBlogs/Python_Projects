@@ -6,10 +6,12 @@
 1. Откройте "Изменение системных переменных среды".
 2. Откройте "Переменные среды".
 3. Выберите "Path" и нажмите "Изменить".
-4. Создайте 2 ссылки: "C:/Users/mylni/AppData/Local/Programs/Python/Python312" и "C:/Users/mylni/AppData/Local/Programs/Python/Python312/Scripts" (ссылки немного могут отличаться).
+4. Создайте 2 ссылки: "C:/Users/mylni/AppData/Local/Programs/Python/Python312" и
+"C:/Users/mylni/AppData/Local/Programs/Python/Python312/Scripts" (ссылки немного могут отличаться).
 '''
 
 import random
+
 from rich import print
 
 while True:
@@ -20,13 +22,16 @@ while True:
     count = 0
 
     print("")
-    print("Добро пожаловать в игру [bold yellow on red blink]\"Угадай число\"[/bold yellow on red blink]! :face_with_monocle:")
+    print("Добро пожаловать в игру [bold yellow on red blink]\"Угадай число\"[/bold yellow on red blink]! "
+          ":face_with_monocle:")
     print("Укажите [italic blue]диапозон[/italic blue], в котором программа загадает число.")
     try:
         min_num = int(input("Введите первое число: "))
         max_num = int(input("Введите первое число: "))
     except:
-        print(":exclamation_mark: [bold red]Что-то пошло не так. Возможно, вы ввели некорректные числа. Присвоен стандартный диапозон: [underline yellow]от 1 до 10[/underline yellow].[/bold red] :exclamation_mark:")
+        print(":exclamation_mark: [bold red]Что-то пошло не так. "
+              "Возможно, вы ввели некорректные числа. Присвоен стандартный диапозон: "
+              "[underline yellow]от 1 до 10[/underline yellow].[/bold red] :exclamation_mark:")
         min_num = 1
         max_num = 10
 
@@ -54,7 +59,8 @@ while True:
             win = True
         count += 1
     print("")
-    print(f"[bold red on yellow blink]Поздравляем! Вы угадали![bold red on yellow blink] Это действительно число {random_number}!")
+    print(
+        f"[bold red on yellow blink]Поздравляем! Вы угадали![bold red on yellow blink] Это действительно число {random_number}!")
     print(f"Вы угадали с {count} попытки.")
     print("")
     print("[italic green]Нажмите [underline red]Enter[/underline red] для перезапуска.[/italic green]")
