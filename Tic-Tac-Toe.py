@@ -6,7 +6,8 @@
 1. Откройте "Изменение системных переменных среды".
 2. Откройте "Переменные среды".
 3. Выберите "Path" и нажмите "Изменить".
-4. Создайте 2 ссылки: "C:/Users/mylni/AppData/Local/Programs/Python/Python312" и "C:/Users/mylni/AppData/Local/Programs/Python/Python312/Scripts" (ссылки немного могут отличаться).
+4. Создайте 2 ссылки: "C:/Users/mylni/AppData/Local/Programs/Python/Python312"
+и "C:/Users/mylni/AppData/Local/Programs/Python/Python312/Scripts" (ссылки немного могут отличаться).
 '''
 
 from rich import print
@@ -24,6 +25,7 @@ while True:
     import random
     import time
 
+
     def Draw():
         print()
         for i in range(0, len(field)):
@@ -36,6 +38,7 @@ while True:
                     print("[green]-[/green]", end=' ')
             print()
 
+
     def Change():
         global player
         if player == "X":
@@ -43,12 +46,15 @@ while True:
         elif player == "O":
             player = "X"
 
+
     def CheckWinner():
         global win
         global winner
         if (field[0][0] == field[0][1] == field[0][2] != "-") or (field[1][0] == field[1][1] == field[1][2] != "-") or (
-                field[2][0] == field[2][1] == field[2][2] != "-") or (field[0][0] == field[1][0] == field[2][0] != "-") or (
-                field[0][1] == field[1][1] == field[2][1] != "-") or (field[0][2] == field[1][2] == field[2][2] != "-") or (
+                field[2][0] == field[2][1] == field[2][2] != "-") or (
+                field[0][0] == field[1][0] == field[2][0] != "-") or (
+                field[0][1] == field[1][1] == field[2][1] != "-") or (
+                field[0][2] == field[1][2] == field[2][2] != "-") or (
                 field[0][0] == field[1][1] == field[2][2] != "-") or (field[2][0] == field[1][1] == field[0][2] != "-"):
             win = True
             if player == "X":
@@ -56,14 +62,20 @@ while True:
             elif player == "O":
                 winner = "X"
 
+
     def ChechNobody():
         global nobody
-        if field[0][0] != "-" and field[0][1] != "-" and field[0][2] != "-" and field[1][0] != "-" and field[1][1] != "-" and field[1][2] != "-" and field[2][0] != "-" and field[2][1] != "-" and field[2][2] != "-":
+        if (field[0][0] != "-" and field[0][1] != "-" and field[0][2] != "-" and field[1][0] != "-"
+                and field[1][1] != "-" and field[1][2] != "-" and field[2][0] != "-" and field[2][1] != "-"
+                and field[2][2] != "-"):
             nobody = True
 
+
     print("")
-    print("Добро пожаловать в игру [bold yellow on red blink]\"Крестики-Нолики\"[/bold yellow on red blink]! :waving_hand:")
-    print("Чтобы указать нужную ячейку, введите [underline blue]2 числа через пробел[/underline blue] в формате РЯД СТОЛБЕЦ (например: 2 3, где 2 - ряд, а 3 - столбец).")
+    print("Добро пожаловать в игру [bold yellow on red blink]\"Крестики-Нолики\"[/bold yellow on red blink]! "
+          ":waving_hand:")
+    print("Чтобы указать нужную ячейку, введите [underline blue]2 числа через пробел[/underline blue] "
+          "в формате РЯД СТОЛБЕЦ (например: 2 3, где 2 - ряд, а 3 - столбец).")
     print("[italic green]Как играем?[/italic green]")
     print("2 человека - 1")
     print("Человек против Компьютера - 2")
@@ -77,26 +89,28 @@ while True:
         print("")
         print("[bold green on blue blink]2 человека[/bold green on blue blink]")
         print("")
-        while win == False and nobody == False:
+        while not win and not nobody:
             Draw()
             try:
                 row, column = map(int, input(f"Ход игрока {player}: ").split())
-                if field[row-1][column-1] == "-":
-                    field[row-1][column-1] = player
+                if field[row - 1][column - 1] == "-":
+                    field[row - 1][column - 1] = player
                     Change()
                     CheckWinner()
                     ChechNobody()
                 else:
                     print(":warning:  [underline yellow]Ячейка занята.[/underline yellow] :warning:")
             except:
-                print(":exclamation_mark: [bold underline red]Что-то пошло не так. Возможно, вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
+                print(":exclamation_mark: [bold underline red]Что-то пошло не так. "
+                      "Возможно, вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
     if choose == 2:
         print("")
-        print("[bold green on blue blink]Человек - [red]X[/red] Компьютер - [yellow]O[/yellow][/bold green on blue blink]")
+        print("[bold green on blue blink]Человек - [red]X[/red] "
+              "Компьютер - [yellow]O[/yellow][/bold green on blue blink]")
         print("")
         player_row = 0
         player_column = 0
-        while win == False and nobody == False:
+        while not win and not nobody:
             Draw()
             if player == "X":
                 try:
@@ -108,14 +122,15 @@ while True:
                         Change()
                         CheckWinner()
                         ChechNobody()
-                        if win == False and nobody == False:
+                        if not win and not nobody:
                             with console.status("[bold cyan]Компьютер делает ход ...[/bold cyan]") as status:
                                 for i in range(3):
                                     time.sleep(1)
                     else:
                         print(":warning:  [underline yellow]Ячейка занята.[/underline yellow] :warning:")
                 except:
-                    print(":exclamation_mark: [bold underline red]Что-то пошло не так. Возможно, вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
+                    print(":exclamation_mark: [bold underline red]Что-то пошло не так. "
+                          "Возможно, вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
             elif player == "O":
                 variants = []
                 if field[0][0] == field[0][1] == "O" and field[0][2] == "-":
@@ -275,7 +290,7 @@ while True:
                 random.shuffle(variants)
                 hod = False
                 for i in range(len(variants)):
-                    if hod == False:
+                    if not hod:
                         row, column = map(int, variants[i].split())
                         if field[row][column] == "-":
                             field[row][column] = player
@@ -283,7 +298,7 @@ while True:
                             Change()
                             CheckWinner()
                             ChechNobody()
-                if hod == False:
+                if not hod:
                     rand_row = random.randint(1, 3)
                     rand_column = random.randint(1, 3)
                     if field[rand_row - 1][rand_column - 1] == "-":
@@ -315,24 +330,38 @@ while True:
         variants = ["К", "Н", "Б", "к", "н", "б"]
         while choose_object not in variants:
             print("")
-            print(":exclamation_mark: [bold underline red]Такого предмета нет. Повторите попытку.[/bold underline red] :exclamation_mark:")
+            print(":exclamation_mark: [bold underline red]Такого предмета нет. "
+                  "Повторите попытку.[/bold underline red] :exclamation_mark:")
             choose_object = input("Выбор: ")
         user = ""
-        if choose_object == "К" or choose_object == "к": user = "Камень"
-        elif choose_object == "Н" or choose_object == "н": user = "Ножницы"
-        elif choose_object == "Б" or choose_object == "б": user = "Бумага"
+        if choose_object == "К" or choose_object == "к":
+            user = "Камень"
+        elif choose_object == "Н" or choose_object == "н":
+            user = "Ножницы"
+        elif choose_object == "Б" or choose_object == "б":
+            user = "Бумага"
         rnd = random.randint(1, 3)
         computer = ""
-        if rnd == 1: computer = "Камень"
-        elif rnd == 2: computer = "Ножницы"
-        elif rnd == 3: computer = "Бумага"
+        if rnd == 1:
+            computer = "Камень"
+        elif rnd == 2:
+            computer = "Ножницы"
+        elif rnd == 3:
+            computer = "Бумага"
         print("")
         print(f"[red]Вы[/red]: {user}.")
         print(f"[yellow]Компьютер[/yellow]: {computer}.")
-        if user == computer: print("[bold green blink]Ничья![/bold green blink]")
-        elif user == "Камень" and computer == "Ножницы": print("[bold yellow blink]Вы выиграли![/bold yellow blink]")
-        elif user == "Камень" and computer == "Бумага": print("[bold red blink]Компьютер выиграл![/bold red blink]")
-        elif user == "Ножницы" and computer == "Камень": print("[bold red blink]Компьютер выиграл![/bold red blink]")
-        elif user == "Ножницы" and computer == "Бумага": print("[bold yellow blink]Вы выиграли![/bold yellow blink]")
-        elif user == "Бумага" and computer == "Камень": print("[bold yellow blink]Вы выиграли![/bold yellow blink]")
-        elif user == "Бумага" and computer == "Ножницы": print("[bold red blink]Компьютер выиграл![/bold red blink]")
+        if user == computer:
+            print("[bold green blink]Ничья![/bold green blink]")
+        elif user == "Камень" and computer == "Ножницы":
+            print("[bold yellow blink]Вы выиграли![/bold yellow blink]")
+        elif user == "Камень" and computer == "Бумага":
+            print("[bold red blink]Компьютер выиграл![/bold red blink]")
+        elif user == "Ножницы" and computer == "Камень":
+            print("[bold red blink]Компьютер выиграл![/bold red blink]")
+        elif user == "Ножницы" and computer == "Бумага":
+            print("[bold yellow blink]Вы выиграли![/bold yellow blink]")
+        elif user == "Бумага" and computer == "Камень":
+            print("[bold yellow blink]Вы выиграли![/bold yellow blink]")
+        elif user == "Бумага" and computer == "Ножницы":
+            print("[bold red blink]Компьютер выиграл![/bold red blink]")
