@@ -1,6 +1,6 @@
+import random
 from tkinter import *
 from tkinter import messagebox
-import random
 from tkinter.messagebox import askyesno
 
 print("!!!")
@@ -14,12 +14,14 @@ window.geometry("650x500")
 variants = []
 enabled = IntVar()
 
+
 def add():
     global variants
     listbox.insert(0, text.get())
     variants.append(text.get())
     if enabled.get() == 1:
         text.delete(0, END)
+
 
 def delete():
     global variants
@@ -31,6 +33,7 @@ def delete():
     except:
         messagebox.showerror("Ошибка", "Что-то пошло не так. Возможно, вы не выбрали элемент.")
 
+
 def delete_all():
     global variants
     if askyesno(title="Очистить весь список", message=f"Вы действительно хотите очистить весь список?"):
@@ -39,12 +42,14 @@ def delete_all():
         if enabled.get() == 1:
             text.delete(0, END)
 
+
 def choose():
     global variants
     try:
         messagebox.showinfo("Результат", f'Выбран элемент: "{random.choice(variants)}"')
     except:
         messagebox.showerror("Ошибка", "Что-то пошло не так. Возможно, вы не добавили элементы.")
+
 
 def random_order():
     if len(variants) != 0:
@@ -57,10 +62,12 @@ def random_order():
     else:
         messagebox.showerror("Ошибка", "Что-то пошло не так. Возможно, вы не добавили элементы.")
 
+
 def cube():
     num = random.randint(1, 6)
     print(['\u2680', '\u2681', '\u2682', '\u2683', '\u2684', '\u2685'][num - 1])
     messagebox.showinfo("Результат", f'Выпало число {num}.')
+
 
 def coin():
     num = random.randint(1, 2)
@@ -69,12 +76,14 @@ def coin():
     elif num == 2:
         messagebox.showinfo("Результат", f'Выпала РЕШКА.')
 
+
 def yn():
     num = random.randint(1, 2)
     if num == 1:
         messagebox.showinfo("Результат", f'Да.')
     elif num == 2:
         messagebox.showinfo("Результат", f'Нет.')
+
 
 def ticket():
     num1 = random.randint(0, 9)
@@ -91,10 +100,11 @@ def ticket():
     else:
         messagebox.showinfo("Результат", f'Билет №{number} оказался НЕСЧАСТЛИВЫМ.')
 
+
 frame = Frame(
-   window,
-   padx = 10,
-   pady = 10
+    window,
+    padx=10,
+    pady=10
 )
 frame.pack(expand=True)
 
@@ -106,38 +116,38 @@ text = Entry(
 text.grid(row=1, column=1, padx=5, pady=5)
 
 add_btn = Button(
-        frame,
-        text="Добавить",
-        cursor="hand2",
-        foreground="black",
-        background="lawngreen",
-        font=("Cambria", 10),
-        width=15,
-        command=lambda: add()
+    frame,
+    text="Добавить",
+    cursor="hand2",
+    foreground="black",
+    background="lawngreen",
+    font=("Cambria", 10),
+    width=15,
+    command=lambda: add()
 )
 add_btn.grid(row=1, column=2, padx=5, pady=5)
 
 delete_btn = Button(
-        frame,
-        text="Удалить",
-        cursor="hand2",
-        foreground="black",
-        background="orange",
-        font=("Cambria", 10),
-        width=15,
-        command=lambda: delete()
+    frame,
+    text="Удалить",
+    cursor="hand2",
+    foreground="black",
+    background="orange",
+    font=("Cambria", 10),
+    width=15,
+    command=lambda: delete()
 )
 delete_btn.grid(row=1, column=3, padx=5, pady=5)
 
 delete_all_btn = Button(
-        frame,
-        text="Удалить всё",
-        cursor="hand2",
-        foreground="black",
-        background="red",
-        font=("Cambria", 10),
-        width=15,
-        command=lambda: delete_all()
+    frame,
+    text="Удалить всё",
+    cursor="hand2",
+    foreground="black",
+    background="red",
+    font=("Cambria", 10),
+    width=15,
+    command=lambda: delete_all()
 )
 delete_all_btn.grid(row=1, column=4, padx=5, pady=5)
 
@@ -150,72 +160,72 @@ listbox = Listbox(
 listbox.grid(row=2, column=1, columnspan=4, sticky=EW, pady=5)
 
 choose_btn = Button(
-        frame,
-        text="Получить случайный элемент",
-        cursor="hand2",
-        foreground="black",
-        background="yellow",
-        font=("Cambria", 12),
-        command=lambda: choose()
+    frame,
+    text="Получить случайный элемент",
+    cursor="hand2",
+    foreground="black",
+    background="yellow",
+    font=("Cambria", 12),
+    command=lambda: choose()
 )
 choose_btn.grid(row=3, column=1, columnspan=4, sticky=EW, pady=5)
 
 random_btn = Button(
-        frame,
-        text="Расположить в случайном порядке",
-        cursor="hand2",
-        foreground="white",
-        background="blue",
-        font=("Cambria", 12),
-        command=lambda: random_order()
+    frame,
+    text="Расположить в случайном порядке",
+    cursor="hand2",
+    foreground="white",
+    background="blue",
+    font=("Cambria", 12),
+    command=lambda: random_order()
 )
 random_btn.grid(row=4, column=1, columnspan=4, sticky=EW, pady=5)
 
 cube_btn = Button(
-        frame,
-        text="Игральная кость",
-        cursor="hand2",
-        foreground="white",
-        background="black",
-        font=("Cambria", 10),
-        width=25,
-        command=lambda: cube()
+    frame,
+    text="Игральная кость",
+    cursor="hand2",
+    foreground="white",
+    background="black",
+    font=("Cambria", 10),
+    width=25,
+    command=lambda: cube()
 )
 cube_btn.grid(row=5, column=1, padx=5, pady=5)
 
 coin_btn = Button(
-        frame,
-        text="Монетка",
-        cursor="hand2",
-        foreground="white",
-        background="darkgoldenrod",
-        font=("Cambria", 10),
-        width=15,
-        command=lambda: coin()
+    frame,
+    text="Монетка",
+    cursor="hand2",
+    foreground="white",
+    background="darkgoldenrod",
+    font=("Cambria", 10),
+    width=15,
+    command=lambda: coin()
 )
 coin_btn.grid(row=5, column=2, padx=5, pady=5)
 
 yn_btn = Button(
-        frame,
-        text="Да/Нет",
-        cursor="hand2",
-        foreground="white",
-        background="mediumpurple",
-        font=("Cambria", 10),
-        width=15,
-        command=lambda: yn()
+    frame,
+    text="Да/Нет",
+    cursor="hand2",
+    foreground="white",
+    background="mediumpurple",
+    font=("Cambria", 10),
+    width=15,
+    command=lambda: yn()
 )
 yn_btn.grid(row=5, column=3, padx=5, pady=5)
 
 ticket_btn = Button(
-        frame,
-        text="Билет",
-        cursor="hand2",
-        foreground="black",
-        background="deeppink1",
-        font=("Cambria", 10),
-        width=15,
-        command=lambda: ticket()
+    frame,
+    text="Билет",
+    cursor="hand2",
+    foreground="black",
+    background="deeppink1",
+    font=("Cambria", 10),
+    width=15,
+    command=lambda: ticket()
 )
 ticket_btn.grid(row=5, column=4, padx=5, pady=5)
 
