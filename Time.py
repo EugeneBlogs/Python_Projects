@@ -3,35 +3,35 @@
 Для отслеживания нажатия клавиши на клавиатуре используется библиотека "keyboard".
 '''
 
-#region Подключённые библиотеки
+# region Подключённые библиотеки
 
+from datetime import datetime, timedelta
+from time import sleep
 from tkinter import *
 from tkinter import messagebox, ttk
 from tkinter.ttk import Combobox
 
-from datetime import datetime, timedelta
-
-import pytz
-
 import keyboard
+import pytz
 import winsound
 
-from time import sleep
-
-#endregion
+# endregion
 
 
 print("!!!")
 print("В консоль будут выводится отчёты об ошибках. Чтобы консоль не открывалась - сохраните файл в формате '.pyw'.")
 print("!!!")
 
+
 def volume_zero():
     for i in range(50):
         keyboard.send("volume down")
 
+
 def closed(event):
     volume_zero()
     raise SystemExit
+
 
 window = Tk()
 window.title("Время")
@@ -46,26 +46,24 @@ volume_zero()
 for i in range(10):
     keyboard.send("volume up")
 
-#region Массивы с числами для часов, минут и секунд
-    
+# region Массивы с числами для часов, минут и секунд
+
 hours = []
 min_sec = []
 for i in range(0, 24):
     if i < 10:
-        str = f"0{i}"
-        hours.append(str)
+        hours.append(f"0{i}")
     else:
         hours.append(f"{i}")
 for i in range(0, 60):
     if i < 10:
-        str = f"0{i}"
-        min_sec.append(str)
+        min_sec.append(f"0{i}")
     else:
         min_sec.append(f"{i}")
 
-#endregion
+# endregion
 
-#region Создание вкладок
+# region Создание вкладок
 
 clock = Frame(notebook)
 alarm = Frame(notebook)
@@ -87,28 +85,29 @@ notebook.add(alarm, text="Будильник", image=alarm_logo, compound=LEFT)
 notebook.add(timer, text="Таймер", image=timer_logo, compound=LEFT)
 notebook.add(stopwatch, text="Секундомер", image=stopwatch_logo, compound=LEFT)
 
-#endregion
+# endregion
 
-#region Часы
+# region Часы
 
 difference = -1
 
 clock_lbl = Label(
-   clock,
-   font=('Impact', 45)
+    clock,
+    font=('Impact', 45)
 )
 clock_lbl.pack(anchor='center')
 name_day_lbl = Label(
-   clock,
-   font=('Impact', 45),
-   foreground="#f0f0f0"
+    clock,
+    font=('Impact', 45),
+    foreground="#f0f0f0"
 )
 name_day_lbl.pack(anchor='center', pady=30)
 date_lbl = Label(
-   clock,
-   font=('Impact', 45)
+    clock,
+    font=('Impact', 45)
 )
 date_lbl.pack(anchor='center')
+
 
 def selected(event):
     global difference
@@ -136,6 +135,7 @@ def selected(event):
     elif city == "Камчатка, Чукотский АО (МКС+9)":
         difference = 9
 
+
 time_zones = ["Калининград (МКС-1)",
               "Москва, Санкт-Петербург (МКС)",
               "Астрахань, Саратов (МКС+1)",
@@ -151,6 +151,7 @@ zones_combobox = Combobox(clock, values=time_zones, width=30, font=('Impact', 20
 zones_combobox.pack(anchor='center', pady=30)
 zones_combobox.set("Калининград (МКС-1)")
 zones_combobox.bind("<<ComboboxSelected>>", selected)
+
 
 def time():
     day = ""
@@ -214,9 +215,11 @@ def time():
     elif date.month == 12:
         data = f"{date.day} декабря {date.year} года"
         date_lbl.config(background="cyan", foreground="blue")
-    if date.hour == 22 or date.hour == 23 or date.hour == 0 or date.hour == 1 or date.hour == 2 or date.hour == 3 or date.hour == 4:
+    if (date.hour == 22 or date.hour == 23 or date.hour == 0 or date.hour == 1
+            or date.hour == 2 or date.hour == 3 or date.hour == 4):
         clock_lbl.config(background="darkblue", foreground="lightblue")
-    elif date.hour == 5 or date.hour == 6 or date.hour == 7 or date.hour == 8 or date.hour == 9 or date.hour == 10 or date.hour == 11:
+    elif (date.hour == 5 or date.hour == 6 or date.hour == 7 or date.hour == 8
+          or date.hour == 9 or date.hour == 10 or date.hour == 11):
         clock_lbl.config(background="goldenrod1", foreground="chartreuse")
     elif date.hour == 12 or date.hour == 13 or date.hour == 14 or date.hour == 15 or date.hour == 16:
         clock_lbl.config(background="white", foreground="cyan")
@@ -228,11 +231,13 @@ def time():
     date_lbl.config(text=data)
     clock_lbl.after(1000, time)
 
+
 time()
 
-#endregion
 
-#region Будильник
+# endregion
+
+# region Будильник
 
 def set_alarm():
     isWorked = True
@@ -249,23 +254,24 @@ def set_alarm():
         messagebox.showinfo(alarm_time, "Сработал будильник!")
     window.title("Время")
 
+
 info_lbl = Label(
-   alarm,
-   font=('Impact', 30),
+    alarm,
+    font=('Impact', 30),
     text="Установите время:"
 )
 info_lbl.pack(side=TOP, pady=5)
 warning_lbl = Label(
-   alarm,
-   font=('Impact', 20),
+    alarm,
+    font=('Impact', 20),
     foreground="red",
     text='ВНИМАНИЕ! Время устанавливается по часовому поясу, установленному в системе компьютера.',
     wraplength=450
 )
 warning_lbl.pack(side=TOP, pady=5)
 warning_lbl = Label(
-   alarm,
-   font=('Impact', 20),
+    alarm,
+    font=('Impact', 20),
     foreground="orange",
     text='ВНИМАНИЕ! Нажмите "Esc", чтобы остановить таймер.',
     wraplength=450
@@ -282,8 +288,8 @@ set_btn = Button(
 )
 set_btn.pack(side=TOP, pady=15)
 info_lbl = Label(
-   alarm,
-   font=('Impact', 15),
+    alarm,
+    font=('Impact', 15),
     text="Часы"
 )
 info_lbl.pack(side=LEFT, padx=7)
@@ -291,8 +297,8 @@ alarm_hours_combobox = Combobox(alarm, values=hours, width=5, font=('Impact', 15
 alarm_hours_combobox.pack(side=LEFT, padx=7)
 alarm_hours_combobox.set("00")
 info_lbl = Label(
-   alarm,
-   font=('Impact', 15),
+    alarm,
+    font=('Impact', 15),
     text="Минуты"
 )
 info_lbl.pack(side=LEFT, padx=7)
@@ -300,8 +306,8 @@ alarm_minutes_combobox = Combobox(alarm, values=min_sec, width=5, font=('Impact'
 alarm_minutes_combobox.pack(side=LEFT, padx=7)
 alarm_minutes_combobox.set("00")
 info_lbl = Label(
-   alarm,
-   font=('Impact', 15),
+    alarm,
+    font=('Impact', 15),
     text="Секунды"
 )
 info_lbl.pack(side=LEFT, padx=7)
@@ -309,14 +315,16 @@ alarm_seconds_combobox = Combobox(alarm, values=min_sec, width=5, font=('Impact'
 alarm_seconds_combobox.pack(side=LEFT, padx=7)
 alarm_seconds_combobox.set("00")
 
-#endregion
 
-#region Таймер
+# endregion
+
+# region Таймер
 
 def set_timer():
     timer_btn.config(state="disabled")
     isWorked = True
-    temp = int(timer_hours_combobox.get()) * 3600 + int(timer_minutes_combobox.get()) * 60 + int(timer_seconds_combobox.get())
+    temp = int(timer_hours_combobox.get()) * 3600 + int(timer_minutes_combobox.get()) * 60 + int(
+        timer_seconds_combobox.get())
     while temp > -1:
         if keyboard.is_pressed('esc'):
             isWorked = False
@@ -328,9 +336,12 @@ def set_timer():
         hour_number = "{:2d}".format(hours)
         minute_number = "{:2d}".format(mins)
         second_number = "{:2d}".format(secs)
-        if int(hour_number) < 10: hour_number = f"0{hour_number}".replace(" ", "")
-        if int(minute_number) < 10: minute_number = f"0{minute_number}".replace(" ", "")
-        if int(second_number) < 10: second_number = f"0{second_number}".replace(" ", "")
+        if int(hour_number) < 10:
+            hour_number = f"0{hour_number}".replace(" ", "")
+        if int(minute_number) < 10:
+            minute_number = f"0{minute_number}".replace(" ", "")
+        if int(second_number) < 10:
+            second_number = f"0{second_number}".replace(" ", "")
         count_lbl.config(text=f"{hour_number}:{minute_number}:{second_number}")
         window.update()
         sleep(1)
@@ -340,23 +351,24 @@ def set_timer():
         temp -= 1
     timer_btn.config(state="normal")
 
+
 info_lbl = Label(
-   timer,
-   font=('Impact', 30),
+    timer,
+    font=('Impact', 30),
     text="Установите время:"
 )
 info_lbl.pack(side=TOP, pady=5)
 warning_lbl = Label(
-   timer,
-   font=('Impact', 20),
+    timer,
+    font=('Impact', 20),
     foreground="orange",
     text='ВНИМАНИЕ! Нажмите "Esc", чтобы остановить таймер.',
     wraplength=450
 )
 warning_lbl.pack(side=TOP, pady=5)
 count_lbl = Label(
-   timer,
-   font=('Impact', 40),
+    timer,
+    font=('Impact', 40),
     foreground="red",
     text='00:00:00',
     wraplength=450
@@ -374,8 +386,8 @@ timer_btn = Button(
 )
 timer_btn.pack(side=TOP, pady=15)
 info_lbl = Label(
-   timer,
-   font=('Impact', 15),
+    timer,
+    font=('Impact', 15),
     text="Часы"
 )
 info_lbl.pack(side=LEFT, padx=7)
@@ -383,8 +395,8 @@ timer_hours_combobox = Combobox(timer, values=hours, width=5, font=('Impact', 15
 timer_hours_combobox.pack(side=LEFT, padx=7)
 timer_hours_combobox.set("00")
 info_lbl = Label(
-   timer,
-   font=('Impact', 15),
+    timer,
+    font=('Impact', 15),
     text="Минуты"
 )
 info_lbl.pack(side=LEFT, padx=7)
@@ -392,8 +404,8 @@ timer_minutes_combobox = Combobox(timer, values=min_sec, width=5, font=('Impact'
 timer_minutes_combobox.pack(side=LEFT, padx=7)
 timer_minutes_combobox.set("00")
 info_lbl = Label(
-   timer,
-   font=('Impact', 15),
+    timer,
+    font=('Impact', 15),
     text="Секунды"
 )
 info_lbl.pack(side=LEFT, padx=7)
@@ -401,15 +413,16 @@ timer_seconds_combobox = Combobox(timer, values=min_sec, width=5, font=('Impact'
 timer_seconds_combobox.pack(side=LEFT, padx=7)
 timer_seconds_combobox.set("00")
 
-#endregion
+# endregion
 
-#region Секундомер
+# region Секундомер
 
 isRun = False
 moments = 0
 moments_lap = 0
 now_lap = "00:00:00"
 laps = []
+
 
 def start_stopwatch():
     global isRun
@@ -427,9 +440,12 @@ def start_stopwatch():
         hour_number = "{:2d}".format(hours)
         minute_number = "{:2d}".format(mins)
         second_number = "{:2d}".format(secs)
-        if int(hour_number) < 10: hour_number = f"0{hour_number}".replace(" ", "")
-        if int(minute_number) < 10: minute_number = f"0{minute_number}".replace(" ", "")
-        if int(second_number) < 10: second_number = f"0{second_number}".replace(" ", "")
+        if int(hour_number) < 10:
+            hour_number = f"0{hour_number}".replace(" ", "")
+        if int(minute_number) < 10:
+            minute_number = f"0{minute_number}".replace(" ", "")
+        if int(second_number) < 10:
+            second_number = f"0{second_number}".replace(" ", "")
         stopwatch_lbl.config(text=f"{hour_number}:{minute_number}:{second_number}")
 
         mins_l, secs_l = divmod(moments_lap, 60)
@@ -439,9 +455,12 @@ def start_stopwatch():
         hour_number_l = "{:2d}".format(hours_l)
         minute_number_l = "{:2d}".format(mins_l)
         second_number_l = "{:2d}".format(secs_l)
-        if int(hour_number_l) < 10: hour_number_l = f"0{hour_number_l}".replace(" ", "")
-        if int(minute_number_l) < 10: minute_number_l = f"0{minute_number_l}".replace(" ", "")
-        if int(second_number_l) < 10: second_number_l = f"0{second_number_l}".replace(" ", "")
+        if int(hour_number_l) < 10:
+            hour_number_l = f"0{hour_number_l}".replace(" ", "")
+        if int(minute_number_l) < 10:
+            minute_number_l = f"0{minute_number_l}".replace(" ", "")
+        if int(second_number_l) < 10:
+            second_number_l = f"0{second_number_l}".replace(" ", "")
         now_lap = f"{hour_number_l}:{minute_number_l}:{second_number_l}"
 
         window.update()
@@ -449,9 +468,11 @@ def start_stopwatch():
         moments += 1
         moments_lap += 1
 
+
 def stop_stopwatch():
     global isRun
     isRun = False
+
 
 def reset_stopwatch():
     stop_stopwatch()
@@ -465,6 +486,7 @@ def reset_stopwatch():
     laps = []
     stopwatch_lbl.config(text="00:00:00")
 
+
 def create_lap():
     global moments_lap
     global laps
@@ -473,16 +495,18 @@ def create_lap():
         moments_lap = 0
         winsound.PlaySound("./files/tick.wav", winsound.SND_ASYNC)
 
+
 def show_laps():
-    if isRun == False:
+    if not isRun:
         string = ""
         for i in range(len(laps)):
-            string += f"{i+1}. {laps[i]}\n"
+            string += f"{i + 1}. {laps[i]}\n"
         messagebox.showinfo("Круги", string)
 
+
 stopwatch_lbl = Label(
-   stopwatch,
-   font=('Impact', 45),
+    stopwatch,
+    font=('Impact', 45),
     foreground="orange",
     text='00:00:00',
     wraplength=450
@@ -544,6 +568,6 @@ show_btn = Button(
 )
 show_btn.pack(side=LEFT, padx=7)
 
-#endregion
+# endregion
 
 window.mainloop()
