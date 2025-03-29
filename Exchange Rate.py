@@ -9,7 +9,8 @@
 1. Откройте "Изменение системных переменных среды".
 2. Откройте "Переменные среды".
 3. Выберите "Path" и нажмите "Изменить".
-4. Создайте 2 ссылки: "C:/Users/mylni/AppData/Local/Programs/Python/Python312" и "C:/Users/mylni/AppData/Local/Programs/Python/Python312/Scripts" (ссылки немного могут отличаться).
+4. Создайте 2 ссылки: "C:/Users/mylni/AppData/Local/Programs/Python/Python312" и
+"C:/Users/mylni/AppData/Local/Programs/Python/Python312/Scripts" (ссылки немного могут отличаться).
 '''
 
 import webbrowser
