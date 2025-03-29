@@ -9,23 +9,26 @@
 4. Создайте 2 ссылки: "C:/Users/mylni/AppData/Local/Programs/Python/Python312" и "C:/Users/mylni/AppData/Local/Programs/Python/Python312/Scripts" (ссылки немного могут отличаться).
 '''
 
-from rich import print
-from rich.prompt import Prompt
-from rich.console import Console
-from rich.table import Table
 import random
 from time import sleep
-from rich.progress import track
 
-def do_step(step):
+from rich import print
+from rich.console import Console
+from rich.progress import track
+from rich.prompt import Prompt
+from rich.table import Table
+
+
+def do_step():
     sleep(random.uniform(0.001, 0.03))
+
 
 def plus_massa(weight, height):
     cool = False
     error = False
     weight = round(weight, 1)
     cool_weight = weight
-    while cool == False:
+    while not cool:
         cool_weight += 0.1
         BMI = cool_weight / (height ** 2)
         if 18.5 < BMI <= 25:
@@ -34,18 +37,22 @@ def plus_massa(weight, height):
             cool = True
             error = True
     if error:
-        print(":exclamation_mark: [bold underline red]Что-то пошло не так. Возможно, вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
+        print(
+            ":exclamation_mark: [bold underline red]Что-то пошло не так. "
+            "Возможно, вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
     elif cool:
         difference = cool_weight - weight
         difference = round(difference, 1)
-        print(f"[underline green]До нормы[/underline green] нужно набрать {difference} кг, чтобы вес стал {cool_weight}.")
+        print(
+            f"[underline green]До нормы[/underline green] нужно набрать {difference} кг, чтобы вес стал {cool_weight}.")
+
 
 def minus_massa(weight, height):
     cool = False
     error = False
     weight = round(weight, 1)
     cool_weight = weight
-    while cool == False:
+    while not cool:
         cool_weight -= 0.1
         BMI = cool_weight / (height ** 2)
         if 18.5 < BMI <= 25:
@@ -54,11 +61,15 @@ def minus_massa(weight, height):
             cool = True
             error = True
     if error:
-        print(":exclamation_mark: [bold underline red]Что-то пошло не так. Возможно, вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
+        print(
+            ":exclamation_mark: [bold underline red]Что-то пошло не так. "
+            "Возможно, вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
     elif cool:
         difference = weight - cool_weight
         difference = round(difference, 1)
-        print(f"[underline green]До нормы[/underline green] нужно скинуть {difference} кг, чтобы вес стал {cool_weight}.")
+        print(
+            f"[underline green]До нормы[/underline green] нужно скинуть {difference} кг, чтобы вес стал {cool_weight}.")
+
 
 while True:
     print("")
@@ -76,16 +87,18 @@ while True:
         weight = Prompt.ask("Ваш вес (кг)", default="63.4")
         height = Prompt.ask("Ваш рост (см)", default="176")
         if float(weight) <= 0 or float(height) <= 0:
-            print(":exclamation_mark: [bold underline red]Числа должны быть положительные.[/bold underline red] :exclamation_mark:")
+            print(
+                ":exclamation_mark: [bold underline red]Числа должны быть положительные. "
+                "[/bold underline red] :exclamation_mark:")
         else:
             try:
                 weight = float(weight)
                 height = float(height)
                 height = height / 100
-                BMI = weight/(height**2)
+                BMI = weight / (height ** 2)
                 BMI = round(BMI, 1)
                 for step in track(range(100), description="Вычисляем ..."):
-                    do_step(step)
+                    do_step()
                 print("")
                 print(f"[magenta]Ваш ИМТ:[/magenta] {BMI}.")
                 if BMI < 16:
@@ -109,7 +122,9 @@ while True:
                     print("У вас [dark_red]ожирение 3 степени[/dark_red].")
                     minus_massa(weight, height)
             except:
-                print(":exclamation_mark: [bold underline red]Что-то пошло не так. Возможно, вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
+                print(
+                    ":exclamation_mark: [bold underline red]Что-то пошло не так. "
+                    "Возможно, вы ввели некорректные числа.[/bold underline red] :exclamation_mark:")
     elif choose == 2:
         print("")
         print("[underline blue]ИМТ[/underline blue] - индекс массы тела")
