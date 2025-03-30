@@ -11,7 +11,10 @@ current_text = ""
 titles = ["Отпуск мечты", "Вот так музей!", "Больничка", "Однажды на уроке", "Испуг требует жертв",
           "Случай в мастерской", "(Не)профессиональный ремонт", "Письмо Деду Морозу", "Потерянная вещь",
           "Поездочка в купе", "Всё началось в супермаркете", "Как в сказке", "ЗаГАВчительная история",
-          "Устроим вечеринку?", "64-битная история"]
+          "Устроим вечеринку?", "64-битная история", "ДТП (СКОРО)", "Квест (СКОРО)",
+          "Дело о загадочной посылке (СКОРО)", "На работу! (СКОРО)", "День, когда всё пошло не так (СКОРО)",
+          "#НикомуНеГовори (СКОРО)", "Отель №666 (СКОРО)",
+          "Звонок с того света? (СКОРО)", "Ключ, лифт, свеча, тайна (СКОРО)", "Виртуальный конфликт (СКОРО)"]
 stories = [
     ["Мужское имя",
      "Куда?",
@@ -303,35 +306,35 @@ def create_field(number, name):
 
 def start():
     global current_text
-
     current_text = combobox.get()
 
-    clear_extra_widgets()
+    if "СКОРО" not in current_text:
+        clear_extra_widgets()
 
-    title_lbl = Label(
-        frame,
-        text=current_text,
-        font=("Ink Free", 30),
-        fg="green"
-    )
-    title_lbl.grid(row=1, column=2, pady=30)
+        title_lbl = Label(
+            frame,
+            text=current_text,
+            font=("Ink Free", 30),
+            fg="green"
+        )
+        title_lbl.grid(row=1, column=2, pady=30)
 
-    ID = titles.index(current_text)
+        ID = titles.index(current_text)
 
-    for i in range(len(stories[ID])):
-        create_field(i + 1, stories[ID][i])
+        for i in range(len(stories[ID])):
+            create_field(i + 1, stories[ID][i])
 
-    result_btn = Button(
-        frame,
-        text="Показать результат",
-        cursor="hand2",
-        foreground="#000000",
-        background="#ff0000",
-        font=("Ink Free", 22),
-        width=20,
-        command=lambda: result(ID)
-    )
-    result_btn.grid(row=len(stories[ID][1]) + 2, column=2, pady=30)
+        result_btn = Button(
+            frame,
+            text="Показать результат",
+            cursor="hand2",
+            foreground="#000000",
+            background="#ff0000",
+            font=("Ink Free", 22),
+            width=20,
+            command=lambda: result(ID)
+        )
+        result_btn.grid(row=len(stories[ID]) + 2, column=2, pady=30)
 
 
 def result(ID):
@@ -461,7 +464,10 @@ info_lbl.grid(row=2, column=2, pady=10)
 
 combobox = Combobox(frame, values=titles, width=30, font=("Ink Free", 22), state="readonly")
 combobox.grid(row=3, column=2, pady=30)
-combobox.set(random.choice(titles))
+now = "СКОРО"
+while "СКОРО" in now:
+    now = random.choice(titles)
+combobox.set(now)
 
 start_btn = Button(
     frame,
