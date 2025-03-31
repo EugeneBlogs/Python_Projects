@@ -1,5 +1,6 @@
 import random
 from tkinter import *
+from tkinter import messagebox
 from tkinter.ttk import Combobox
 
 print("!!!")
@@ -328,8 +329,8 @@ def start():
             frame,
             text="Показать результат",
             cursor="hand2",
-            foreground="#000000",
-            background="#ff0000",
+            foreground="#ffffff",
+            background="#00ff00",
             font=("Ink Free", 22),
             width=20,
             command=lambda: result(ID)
@@ -403,8 +404,8 @@ def result(ID):
         frame,
         text="Выход",
         cursor="hand2",
-        foreground="#ffffff",
-        background="#0000ff",
+        foreground="#000000",
+        background="#ff0000",
         font=("Ink Free", 22),
         width=15,
         command=lambda: exit()
@@ -457,7 +458,7 @@ info_lbl = Label(
          "так и словосочетания.\nДанные ответы будут подставлены в текст.\n"
          "Так как вы не знали контекст, получится смешная история :)",
     font=("Ink Free", 24),
-    fg="red",
+    fg="green",
     wraplength=750
 )
 info_lbl.grid(row=2, column=2, pady=10)
@@ -485,12 +486,17 @@ home_btn = Button(
     frame,
     text="Выход",
     cursor="hand2",
-    foreground="#ffffff",
-    background="#0000ff",
+    foreground="#000000",
+    background="#ff0000",
     font=("Ink Free", 22),
     width=15,
     command=lambda: exit()
 )
 home_btn.grid(row=4, column=3, pady=30)
+
+messagebox.showwarning("ВНИМАНИЕ!",
+                       'Данная версия игры является устаревшой.\n'
+                       'В целях удобства игра перенесена на сайт "https://eugeneblogs.github.io/M.CODE/MadLibs.html".\n'
+                       'Все новые обновления будут выпускаться исключительно на сайте.')
 
 window.mainloop()
